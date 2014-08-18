@@ -1,0 +1,25 @@
+<Actor type="Ball" resource="Actors\PongBall.xml">
+	<TransformComponent>
+		<Direction>(-1, -1)</Direction>
+		<Position>(640, 400)</Position>
+		<Size>(20, 20)</Size>
+	</TransformComponent>
+	
+	<ConstantVelocityPhysicsComponent>
+		<Shape>Circle</Shape>
+		<Mass>1</Mass>
+		<Moment>infinity</Moment>
+		<Elasticity>1.0</Elasticity>
+		<CollisionType>3</CollisionType>
+		<VelocityMod>300</VelocityMod>
+		<VelocityLimit>700</VelocityLimit>
+	</ConstantVelocityPhysicsComponent>
+	
+	<SpriteRenderComponent>
+		<Sprite>Images\PongBallHappy.png</Sprite>
+	</SpriteRenderComponent>
+	
+	<BallAIComponent>
+		<Brain>SimpleBallBrain</Brain>
+	</BallAIComponent>
+</Actor>

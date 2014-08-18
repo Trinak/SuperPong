@@ -1,0 +1,18 @@
+<Actor type="Wall" resource="Actors\LeftWall.xml">
+	<TransformComponent>
+		<Position>(5, 412)</Position>
+		<Size>(1, 1)</Size>
+	</TransformComponent>
+	
+	<PhysicsComponent>
+		<Shape>Segment</Shape>
+		<CollisionType>2</CollisionType>
+		<Elasticity>1.0</Elasticity>
+		<IsStatic>True</IsStatic>
+		<Vertices>[(5, 30), (5, 795)]</Vertices>
+	</PhysicsComponent>
+	
+	<LineSegmentRenderComponent>
+		<Color r="255" g="255" b="255" />
+	</LineSegmentRenderComponent>
+</Actor>

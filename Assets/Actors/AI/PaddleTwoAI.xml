@@ -1,0 +1,26 @@
+<Actor type="PaddleTwo" resource="Actors\PaddleTwo.xml">
+	<TransformComponent>
+		<Direction>(0, 1)</Direction>
+		<Position>(1255, 400)</Position>
+		<Size>(13, 94)</Size>
+	</TransformComponent>
+		
+	<PaddlePhysicsComponent>
+		<Shape>Box</Shape>
+		<Mass>10</Mass>
+		<Moment>infinity</Moment>
+		<Elasticity>1.0</Elasticity>
+		<GrooveJoint>
+			<GrooveA>(1255, 50)</GrooveA>
+			<GrooveB>(1255, 750)</GrooveB>
+			<Anchr2>(0, 0)</Anchr2>
+		</GrooveJoint>
+	</PaddlePhysicsComponent>
+	
+	<SpriteRenderComponent>
+		<Sprite>Images\PaddleTwo.png</Sprite>
+	</SpriteRenderComponent>
+	
+	<PongPaddleAIComponent>
+	</PongPaddleAIComponent>
+</Actor>

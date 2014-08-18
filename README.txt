@@ -1,0 +1,1 @@
+SuperPong (working name) is a basic Pong game with some minor additions. It uses my PyHopeEngine in order to demonstrate its use. This game is still a work in progress. 
