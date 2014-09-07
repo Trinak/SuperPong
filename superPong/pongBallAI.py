@@ -55,9 +55,9 @@ class SimpleBallBrain(BallBrain):
         else:
             rand = random.randint(0, 10)
             if rand < 10:
-                return BallAngry
+                return BallSad
             else:
-                return BallAngry
+                return BallSad
        
     def checkCollide(self, event):
         actor1 = ECOM.actorManager.getActor(event.actorID1)
@@ -93,9 +93,33 @@ class BallState(object):
 class BallHappy(BallState):
     def __init__(self, ball):
         super().__init__(ball)
+
+
+class BallSad(BallState): #Goal: Feels down, stays on bottom half of screen
+    def __init__(self, ball):
+        super().__init__(ball)
+        transformComp = self.ball.getComponent('TransformComponent')
+        pos = transformComp.pos
+        rotation = transformComp.rotation
+        
+        file = 'Images\PongBallSad.png'
+        renderComp = self.ball.getComponent('RenderComponent')
+        renderComp.spriteFile = file
+        renderComp.sceneNode.addSpriteImage(file, pos, rotation)
+        
+    def update(self):
+        transformComp = self.ball.getComponent('TransformComponent')
+        pos = transformComp.pos
+        
+        physicsComp = self.ball.getComponent("PhysicsComponent")
+        velocity = physicsComp.physics.getVelocity(self.ball.actorID)
+        screenHalfHeight = ECOM.Screen.halfH
+        
+        if pos.y < screenHalfHeight:
+            velocity.y = -velocity.y
             
 
-class BallSad(BallState):
+class BallCrazy(BallState): #Goal: None, move randomly
     def __init__(self, ball):
         super().__init__(ball)
         transformComp = self.ball.getComponent('TransformComponent')
@@ -123,7 +147,7 @@ class BallSad(BallState):
             ECOM.eventManager.queueEvent(event)
 
 
-class BallAngry(BallState):
+class BallAngry(BallState): #Goal: Angry at being hit. Supports whoever has hit it less. 
     def __init__(self, ball):
         super().__init__(ball)
         transformComp = self.ball.getComponent('TransformComponent')
@@ -131,6 +155,8 @@ class BallAngry(BallState):
         rotation = transformComp.rotation
         self.leftScore = ECOM.engine.baseLogic.leftScore
         self.rightScore = ECOM.engine.baseLogic.rightScore
+        self.MAX_VELOCITY = 500
+        self.MIN_VELOCITY = 150
         
         file = 'Images\PongBallAngry.png'
         renderComp = self.ball.getComponent('RenderComponent')
@@ -140,8 +166,6 @@ class BallAngry(BallState):
         ECOM.eventManager.addListener(self.handleGoal, Event_BallGoal.eventType)
     
     def update(self):
-        #rand = random.randint(0, 3)
-        #if rand < 3:
         physicsComp = self.ball.getComponent("PhysicsComponent")
         velocityMod = physicsComp.velocityMod
         velocity = physicsComp.physics.getVelocity(self.ball.actorID)
@@ -149,22 +173,39 @@ class BallAngry(BallState):
         #ball will favor left side           
         if self.leftScore < self.rightScore:
             if velocity.x > 0: #ball going right
-                velocityMod += 300
+                velocityMod +=15
+                if velocityMod > self.MAX_VELOCITY:
+                    velocityMod = self.MAX_VELOCITY 
                 physicsComp.changeVelocityMod(velocityMod)
             else:
-                velocityMod -= 300
+                velocityMod -= 10
+                if velocityMod < self.MIN_VELOCITY:
+                    velocityMod = self.MIN_VELOCITY
                 physicsComp.changeVelocityMod(velocityMod)
                 
         #ball will favor right side
         elif self.rightScore < self.leftScore:
             if velocity.x < 0: #ball going left
-                velocityMod -= 300
+                velocityMod += 15
+                if velocityMod > self.MAX_VELOCITY:
+                    velocityMod = self.MAX_VELOCITY
                 physicsComp.changeVelocityMod(velocityMod)
             else:
-                velocityMod += 300
+                velocityMod -= 10
+                if velocityMod < self.MIN_VELOCITY:
+                    velocityMod = self.MIN_VELOCITY
                 physicsComp.changeVelocityMod(velocityMod)
     
     def handleGoal(self, event):
         self.leftScore = event.leftScore
         self.rightScore = event.rightScore
+        
+        if self.leftScore == self.rightScore:
+            physicsComp = self.ball.getComponent("PhysicsComponent")
+            velocityMod = physicsComp.velocityMod
+            if velocityMod < 300:
+                velocityMod = 300
+                physicsComp.changeVelocityMod(velocityMod)
+            
+            
         

@@ -87,7 +87,7 @@ class BallAIComponent(AIComponent):
         ballProcess = BallProcess(self)
         aiProcess = BallAIProcess(self)
         ECOM.engine.baseLogic.processManager.addProcess(ballProcess)
-        ECOM.engine.baseLogic.processManager.addProcess(aiProcess)
+        #ECOM.engine.baseLogic.processManager.addProcess(aiProcess)
         
     def postInit(self):
         self.brain.init(self.owner)
@@ -107,7 +107,8 @@ class BallAIComponent(AIComponent):
             self.setState(state)
     
     def update(self):
-        pass
+        if self.currentState is not None:
+            self.currentState.update()
     
     def updateProcess(self):
         if self.currentState is not None:

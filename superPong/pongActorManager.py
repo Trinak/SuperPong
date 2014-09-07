@@ -35,3 +35,10 @@ class PongActorManager(ActorManager):
     
     def getBall(self, num = 0):
         return self.balls[num]
+    
+    def cleanUp(self):
+        super().cleanUp()
+        
+        self.players.clear()
+        self.enemies.clear()
+        self.balls.clear()
