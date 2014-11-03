@@ -6,8 +6,9 @@ Created on Oct 30, 2014
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine.actors.components.aiComponent import AIComponent
-from superPong.actors.ballAI.ballAIProcess import BallAIProcess
-from superPong.actors.pongBallAI import SimpleBallBrain, BallProcess
+from superPong.actors.ballAI.ballProcesses.ballAIProcess import BallAIProcess
+from superPong.actors.ballAI.ballProcesses.ballChooseStateProcess import BallChooseStateProcess
+from superPong.actors.ballAI.pongBallAI import SimpleBallBrain
 
 class BallAIComponent(AIComponent):
     def __init__(self):
@@ -18,7 +19,7 @@ class BallAIComponent(AIComponent):
     def init(self, element):
         brainElement = element.find("Brain")
         self.setBrain(brainElement.text)
-        ballProcess = BallProcess(self)
+        ballProcess = BallChooseStateProcess(self)
         aiProcess = BallAIProcess(self)
         ECOM.engine.baseLogic.processManager.addProcess(ballProcess)
         #ECOM.engine.baseLogic.processManager.addProcess(aiProcess)

@@ -5,13 +5,13 @@ Created on Jul 27, 2013
 '''
 
 from pyHopeEngine import ActorFactory
-from superPong.actors.pongComponents import PaddlePhysicsComponent, PongPaddleAIComponent, BallAIComponent
+from superPong.actors.components import *
 
 class PongActorFactory(ActorFactory):
     def __init__(self):
         super().__init__()
         
-        self.componentDict["PaddlePhysicsComponent"] = PaddlePhysicsComponent
-        self.componentDict["PongPaddleAIComponent"] = PongPaddleAIComponent
-        self.componentDict["BallAIComponent"] = BallAIComponent
+        self.componentDict["PaddlePhysicsComponent"] = paddlePhysicsComponent.PaddlePhysicsComponent
+        self.componentDict["PongPaddleAIComponent"] = pongPaddleAIComponent.PongPaddleAIComponent
+        self.componentDict["BallAIComponent"] = ballAIComponent.BallAIComponent
         
