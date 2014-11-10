@@ -26,6 +26,8 @@ class BallBrain(object):
 class SimpleBallBrain(BallBrain):
     def __init__(self):
         super().__init__()
+        self.emotionalWeights = [15, 32, 49, 66, 83, 100]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
+        self.emotions = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
         self.hitLeft = 0
         self.hitRight = 0
         self.name = "SimpleBallBrain"
@@ -33,25 +35,15 @@ class SimpleBallBrain(BallBrain):
         ECOM.eventManager.addListener(self.adjustEmotionalStats, Event_GiveBallItem.eventType)
     
     def think(self):
-        hits = self.hitLeft + self.hitRight
-        if hits < 1:
-            return ballHappy.BallHappy
-        else:
-            rand = random.randint(0, 6)
-            if rand == 0:
-                return ballHappy.BallHappy
-            elif rand == 1:
-                return ballCrazy.BallCrazy
-            elif rand == 2:
-                return ballSad.BallSad
-            elif rand == 3:
-                return ballExcited.BallExcited
-            elif rand == 4:
-                return ballAngry.BallAngry
-            elif rand == 5:
-                return ballBored.BallBored
+        choice = 0
+        rand = random.randint(1, 100)
         
-        return ballHappy.BallHappy
+        for i in range(6):
+            if rand <= self.emotionalWeights[i]:
+                choice = i
+                break
+        
+        return self.emotions[choice];
             
        
     def checkCollide(self, event):
