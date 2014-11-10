@@ -9,6 +9,7 @@ import pygame
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import KeyboardHandler
 from pyHopeEngine import Event_Accelerate, Event_Decelerate
+from superPong.events.pongEvents import Event_GiveBallItem
 
 ACCELERATION = 100
 
@@ -18,7 +19,9 @@ class PaddleController(KeyboardHandler):
         self.paddleNode = None
         self.keyMoveUp = None
         self.keyMoveDown = None
-    
+        self.giveChocolate = None
+        self.givePsychoticPill = None
+        self.giveAntiDepressant = None
     
     def setControlledActor(self, paddleNode):
         self.paddleNode = paddleNode
@@ -42,6 +45,18 @@ class PaddleController(KeyboardHandler):
         if key == self.keyMoveUp or key == self.keyMoveDown:
             event = Event_Decelerate(self.paddleNode.actorID, 0)
             ECOM.eventManager.queueEvent(event)
+        
+        if key == self.giveChocolate:
+            event = Event_GiveBallItem("chocolate")
+            ECOM.eventManager.queueEvent(event)
+        
+        if key == self.givePsychoticPill:
+            event = Event_GiveBallItem("psychopill")
+            ECOM.eventManager.queueEvent(event)
+        
+        if key == self.giveAntiDepressant:
+            event = Event_GiveBallItem("antidepressant")
+            ECOM.eventManager.queueEvent(event)
 
 
 class PaddleOneController(PaddleController):
@@ -49,6 +64,9 @@ class PaddleOneController(PaddleController):
         super().__init__()
         self.keyMoveUp = pygame.K_w
         self.keyMoveDown = pygame.K_s
+        self.giveChocolate = pygame.K_c
+        self.givePsychoticPill = pygame.K_p
+        self.giveAntiDepressant = pygame.K_a
         
         
 class PaddleTwoController(PaddleController):

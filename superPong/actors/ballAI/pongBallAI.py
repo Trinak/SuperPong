@@ -8,7 +8,7 @@ import random
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
-from superPong.events.pongEvents import Event_BallCollide
+from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem
 
 class BallBrain(object):
     def __init__(self):
@@ -30,6 +30,7 @@ class SimpleBallBrain(BallBrain):
         self.hitRight = 0
         self.name = "SimpleBallBrain"
         ECOM.eventManager.addListener(self.checkCollide, Event_BallCollide.eventType)
+        ECOM.eventManager.addListener(self.adjustEmotionalStats, Event_GiveBallItem.eventType)
     
     def think(self):
         hits = self.hitLeft + self.hitRight
@@ -68,3 +69,12 @@ class SimpleBallBrain(BallBrain):
             self.hitLeft += 1
         elif paddle.type == 'PaddleTwo':
             self.hitRight += 1
+    
+    
+    def adjustEmotionalStats(self, event):
+        if event.item == "Chocolate":
+            pass
+        elif event.item == "PsychoticPill":
+            pass
+        elif event.item == "AntiDepressant":
+            pass
