@@ -47,15 +47,15 @@ class PaddleController(KeyboardHandler):
             ECOM.eventManager.queueEvent(event)
         
         if key == self.giveChocolate:
-            event = Event_GiveBallItem("chocolate")
+            event = Event_GiveBallItem("Chocolate")
             ECOM.eventManager.queueEvent(event)
         
         if key == self.givePsychoticPill:
-            event = Event_GiveBallItem("psychopill")
+            event = Event_GiveBallItem("Psychopill")
             ECOM.eventManager.queueEvent(event)
         
         if key == self.giveAntiDepressant:
-            event = Event_GiveBallItem("antidepressant")
+            event = Event_GiveBallItem("Antidepressant")
             ECOM.eventManager.queueEvent(event)
 
 

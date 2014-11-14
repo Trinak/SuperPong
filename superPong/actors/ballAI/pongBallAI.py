@@ -5,6 +5,7 @@ Created on Sep 17, 2013
 '''
 
 import random
+import math
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
@@ -26,7 +27,7 @@ class BallBrain(object):
 class SimpleBallBrain(BallBrain):
     def __init__(self):
         super().__init__()
-        self.emotionalWeights = [15, 32, 49, 66, 83, 100]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
+        self.emotionalWeights = [15, 17, 17, 17, 17, 17]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
         self.emotions = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
         self.hitLeft = 0
         self.hitRight = 0
@@ -35,15 +36,12 @@ class SimpleBallBrain(BallBrain):
         ECOM.eventManager.addListener(self.adjustEmotionalStats, Event_GiveBallItem.eventType)
     
     def think(self):
-        choice = 0
-        rand = random.randint(1, 100)
+        choices = []
         
         for i in range(6):
-            if rand <= self.emotionalWeights[i]:
-                choice = i
-                break
+            choices += [self.emotions[i]] * self.emotionalWeights[i]
         
-        return self.emotions[choice];
+        return random.choice(choices)
             
        
     def checkCollide(self, event):
@@ -64,9 +62,18 @@ class SimpleBallBrain(BallBrain):
     
     
     def adjustEmotionalStats(self, event):
-        if event.item == "Chocolate":
-            pass
-        elif event.item == "PsychoticPill":
-            pass
-        elif event.item == "AntiDepressant":
-            pass
+        weightsAdjusted = False
+        
+        if event.item == "Chocolate" and self.emotionalWeights[0] < 100:
+            self.emotionalWeights[0] = min(self.emotionalWeights[0] + 30, 100)
+            weightsAdjusted = True
+        elif event.item == "PsychoticPill" and self.emotionalWeights[5] < 100:
+            self.emotionalWeights[5] = min(self.emotionalWeights[5] + 30, 100)
+            weightsAdjusted = True
+        elif event.item == "AntiDepressant" and self.emotionalWeights[0] < 100:
+            self.emotionalWeights[0] = min(self.emotionalWeights[0] + 30, 100)
+            weightsAdjusted = True
+            
+        if weightsAdjusted:
+            for i in range(6):
+                self.emotionalWeights[i] -= 5
