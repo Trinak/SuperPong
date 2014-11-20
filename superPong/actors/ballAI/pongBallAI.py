@@ -33,7 +33,7 @@ class SimpleBallBrain(BallBrain):
         self.hitRight = 0
         self.name = "SimpleBallBrain"
         ECOM.eventManager.addListener(self.checkCollide, Event_BallCollide.eventType)
-        ECOM.eventManager.addListener(self.adjustEmotionalStats, Event_GiveBallItem.eventType)
+        ECOM.eventManager.addListener(self.handleItem, Event_GiveBallItem.eventType)
     
     def think(self):
         choices = []
@@ -61,19 +61,24 @@ class SimpleBallBrain(BallBrain):
             self.hitRight += 1
     
     
-    def adjustEmotionalStats(self, event):
-        weightsAdjusted = False
-        
+    def handleItem(self, event):
         if event.item == "Chocolate" and self.emotionalWeights[0] < 100:
-            self.emotionalWeights[0] = min(self.emotionalWeights[0] + 30, 100)
-            weightsAdjusted = True
+            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
         elif event.item == "PsychoticPill" and self.emotionalWeights[5] < 100:
-            self.emotionalWeights[5] = min(self.emotionalWeights[5] + 30, 100)
-            weightsAdjusted = True
+            self.emotionalWeights[5] = self.adjustEmotionalStats(self.emotionalWeights[5])
         elif event.item == "AntiDepressant" and self.emotionalWeights[0] < 100:
-            self.emotionalWeights[0] = min(self.emotionalWeights[0] + 30, 100)
-            weightsAdjusted = True
-            
-        if weightsAdjusted:
-            for i in range(6):
-                self.emotionalWeights[i] -= 5
+            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
+
+
+    def adjustEmotionalStats(self, weight):
+        currentWeight = weight
+        weight = min(weight + 30, 100)
+        adjust = (weight - currentWeight) / 6
+        
+        for i in range(6):
+            self.emotionalWeights[i] -= adjust
+        
+        return weight
+        
+        
+        
