@@ -64,16 +64,24 @@ class SimpleBallBrain(BallBrain):
     def handleItem(self, event):
         if event.item == "Chocolate" and self.emotionalWeights[0] < 100:
             self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
-        elif event.item == "PsychoticPill" and self.emotionalWeights[5] < 100:
+        elif event.item == "Psychopill" and self.emotionalWeights[5] < 100:
             self.emotionalWeights[5] = self.adjustEmotionalStats(self.emotionalWeights[5])
         elif event.item == "AntiDepressant" and self.emotionalWeights[0] < 100:
             self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
+        elif event.item == "HistoryBook":
+            pass
+        elif event.item == "MeanNote":
+            pass
+        elif event.item == "SadPicture":
+            pass
+        elif event.item =="WinningTicket":
+            pass
 
 
     def adjustEmotionalStats(self, weight):
         currentWeight = weight
         weight = min(weight + 30, 100)
-        adjust = (weight - currentWeight) / 6
+        adjust = int((weight - currentWeight) / 6)
         
         for i in range(6):
             self.emotionalWeights[i] -= adjust

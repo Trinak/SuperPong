@@ -60,7 +60,7 @@ class Event_StartGame(BaseEvent):
 
 
 class Event_GiveBallItem(BaseEvent):
-    eventType = "GiveChocolate"
+    eventType = "GiveBallItem"
     
     def __init__(self, item):
         self.item = item

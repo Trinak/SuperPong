@@ -22,6 +22,10 @@ class PaddleController(KeyboardHandler):
         self.giveChocolate = None
         self.givePsychoticPill = None
         self.giveAntiDepressant = None
+        self.giveHistoryBook = None
+        self.giveMeanNote = None
+        self.giveSadPicture = None
+        self.giveWinningTicket = None
     
     def setControlledActor(self, paddleNode):
         self.paddleNode = paddleNode
@@ -58,6 +62,24 @@ class PaddleController(KeyboardHandler):
             event = Event_GiveBallItem("Antidepressant")
             ECOM.eventManager.queueEvent(event)
 
+        if key == self.giveHistoryBook:
+            event = Event_GiveBallItem("HistoryBook")
+            ECOM.eventManager.queueEvent(event)
+
+        if key == self.giveMeanNote:
+            event = Event_GiveBallItem("MeanNote")
+            ECOM.eventManager.queueEvent(event)
+
+        if key == self.giveSadPicture:
+            event = Event_GiveBallItem("SadPicture")
+            ECOM.eventManager.queueEvent(event)
+            
+        if key == self.giveWinningTicket:
+            event = Event_GiveBallItem("WinningTicket")
+            ECOM.eventManager.queueEvent(event)
+
+
+
 
 class PaddleOneController(PaddleController):
     def __init__(self):
@@ -67,6 +89,10 @@ class PaddleOneController(PaddleController):
         self.giveChocolate = pygame.K_c
         self.givePsychoticPill = pygame.K_p
         self.giveAntiDepressant = pygame.K_a
+        self.giveHistoryBook = pygame.K_h
+        self.giveMeanNote = pygame.K_m
+        self.giveSadPicture = pygame.K_k
+        self.giveWinningTicket = pygame.K_t
         
         
 class PaddleTwoController(PaddleController):
