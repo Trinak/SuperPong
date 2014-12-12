@@ -172,10 +172,7 @@ class PongRunningState(BaseState):
         
     
     def update(self, logic):
-        if logic.leftScore > 4:
-            state = MainMenuState()
-            logic.changeState(state)
-        elif logic.rightScore > 4:
+        if logic.leftScore > 4 or logic.rightScore > 4:
             state = MainMenuState()
             logic.changeState(state)
     

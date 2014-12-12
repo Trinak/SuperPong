@@ -10,6 +10,7 @@ import math
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
 from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem
+from nt import stat_float_times
 
 class BallBrain(object):
     def __init__(self):
@@ -62,31 +63,41 @@ class SimpleBallBrain(BallBrain):
     
     
     def handleItem(self, event):
-        if event.item == "Chocolate" and self.emotionalWeights[0] < 100:
-            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
-        elif event.item == "Psychopill" and self.emotionalWeights[5] < 100:
-            self.emotionalWeights[5] = self.adjustEmotionalStats(self.emotionalWeights[5])
-        elif event.item == "AntiDepressant" and self.emotionalWeights[0] < 100:
-            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0])
-        elif event.item == "HistoryBook":
-            pass
+        if event.item == "Chocolate":
+            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0], 30)
+            self.emotionalWeights[4] = self.adjustEmotionalStats(self.emotionalWeights[4], 15)
         elif event.item == "MeanNote":
-            pass
+            self.emotionalWeights[1] = self.adjustEmotionalStats(self.emotionalWeights[1], 30)
+            self.emotionalWeights[2] = self.adjustEmotionalStats(self.emotionalWeights[2], 15)
+        elif event.item == "AntiDepressant":
+            self.emotionalWeights[2] = self.adjustEmotionalStats(self.emotionalWeights[2], -20)
+            self.emotionalWeights[1] = self.adjustEmotionalStats(self.emotionalWeights[1], -10)
         elif event.item == "SadPicture":
-            pass
+            self.emotionalWeights[2] = self.adjustEmotionalStats(self.emotionalWeights[2], 30)
+            self.emotionalWeights[0] = self.adjustEmotionalStats(self.emotionalWeights[0], -15)
+        elif event.item == "HistoryBook":
+            self.emotionalWeights[3] = self.adjustEmotionalStats(self.emotionalWeights[3], 30)
+            self.emotionalWeights[4] = self.adjustEmotionalStats(self.emotionalWeights[4], -15)
         elif event.item =="WinningTicket":
-            pass
+            self.emotionalWeights[4] = self.adjustEmotionalStats(self.emotionalWeights[4], 30)
+            self.emotionalWeights[3] = self.adjustEmotionalStats(self.emotionalWeights[3], -15)
+        elif event.item == "Psychopill":
+            self.emotionalWeights[5] = self.adjustEmotionalStats(self.emotionalWeights[5], 30)
+        
+        if sum(self.emotionalWeights) != 100:
+            difference = 100 - sum(self.emotionalWeights)
+            self.emotionalWeights[0] += difference
+            
 
-
-    def adjustEmotionalStats(self, weight):
-        currentWeight = weight
-        weight = min(weight + 30, 100)
-        adjust = int((weight - currentWeight) / 6)
+    def adjustEmotionalStats(self, stat, adjust):
+        currentWeight = stat
+        stat = max(min((stat + adjust), 100), 0)
+        difference = int((stat - currentWeight) / 5)
         
         for i in range(6):
-            self.emotionalWeights[i] -= adjust
+                self.emotionalWeights[i] -= difference
         
-        return weight
+        return stat
         
         
         
