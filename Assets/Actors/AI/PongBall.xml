@@ -1,6 +1,6 @@
 <Actor type="Ball" resource="Actors\PongBall.xml">
 	<TransformComponent>
-		<Direction>(-1, -1)</Direction>
+		<Direction>Random</Direction>
 		<Position>(640, 400)</Position>
 		<Size>(20, 20)</Size>
 	</TransformComponent>

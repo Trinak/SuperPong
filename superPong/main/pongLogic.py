@@ -7,7 +7,6 @@ Created on May 9, 2013
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import BaseLogic
 from pyHopeEngine import Event_ClientConnected, Event_Accelerate, Event_Decelerate, Event_ApplyImpulse
-from pyHopeEngine import Vec2d
 from superPong.actors.pongActorManager import PongActorManager
 from superPong.events.pongEvents import Event_BallGoal, Event_BallCollide, Event_PaddleClicked, Event_AssignPaddle, Event_AssignPlayerID, Event_RequestStartGame, Event_StartGame
 
@@ -126,7 +125,6 @@ class PongLogic(BaseLogic):
     def handleGoal(self):
         event = Event_BallGoal(self.leftScore, self.rightScore)
         ECOM.eventManager.queueEvent(event)
-        pos = Vec2d(ECOM.Screen.halfW, ECOM.Screen.halfH)
-        self.actorManager.getBall().getComponent("PhysicsComponent").setPosition(pos)
+        self.actorManager.restartBall()
             
         

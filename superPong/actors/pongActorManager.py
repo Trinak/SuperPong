@@ -3,10 +3,12 @@ Created on Jul 24, 2013
 
 @author: Devon
 '''
+import random
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import ActorManager
 from pyHopeEngine import Event_SetControlledActor
+from pyHopeEngine import Vec2d
 from superPong.actors.pongActorFactory import PongActorFactory
 
 class PongActorManager(ActorManager):
@@ -35,6 +37,15 @@ class PongActorManager(ActorManager):
     
     def getBall(self, num = 0):
         return self.balls[num]
+    
+    def restartBall(self, num = 0):
+        pos = Vec2d(ECOM.Screen.halfW, ECOM.Screen.halfH)
+        x = random.choice((-1, 1))
+        y = random.choice((-1, 1))
+        direction = Vec2d(x, y)
+        
+        self.balls[num].getComponent("PhysicsComponent").setPosition(pos) 
+        self.balls[num].getComponent("TransformComponent").direction = direction
     
     def cleanUp(self):
         super().cleanUp()
