@@ -16,8 +16,6 @@ class BallAngry(BallState): #Goal: Angry at being hit. Supports whoever has hit 
         rotation = transformComp.rotation
         self.leftScore = ECOM.engine.baseLogic.leftScore
         self.rightScore = ECOM.engine.baseLogic.rightScore
-        self.MAX_VELOCITY = 500
-        self.MIN_VELOCITY = 150
         
         file = 'Images\PongBallAngry.png'
         renderComp = self.ball.getComponent('RenderComponent')

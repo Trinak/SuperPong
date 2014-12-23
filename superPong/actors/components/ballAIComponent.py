@@ -25,13 +25,15 @@ class BallAIComponent(AIComponent):
         #ECOM.engine.baseLogic.processManager.addProcess(aiProcess)
         
     def postInit(self):
-        self.brain.init(self.owner)
+        self.currentState = self.brain.init(self.owner)
+        self.currentState.init()
     
     def setBrain(self, name):
         if name == "SimpleBallBrain":
             self.brain = SimpleBallBrain()
     
     def setState(self, state):
+        self.currentState.cleanUp()
         self.currentState = state(self.owner)
         self.currentState.init()
     

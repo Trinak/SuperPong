@@ -7,6 +7,9 @@ Created on Oct 30, 2014
 class BallState(object):
     def __init__(self, ball):
         self.ball = ball
+        self.MAX_VELOCITY = 500
+        self.MIN_VELOCITY = 150
+        self.AVG_VELOCITY = (self.MAX_VELOCITY + self.MIN_VELOCITY) / 2
     
     
     def init(self):
@@ -15,3 +18,8 @@ class BallState(object):
     
     def update(self):
         pass
+    
+    
+    def cleanUp(self):
+        physicsComp = self.ball.getComponent("PhysicsComponent")
+        physicsComp.changeVelocityMod(self.AVG_VELOCITY)

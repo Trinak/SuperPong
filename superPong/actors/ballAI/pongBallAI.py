@@ -5,21 +5,19 @@ Created on Sep 17, 2013
 '''
 
 import random
-import math
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
 from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem
-from nt import stat_float_times
 
 class BallBrain(object):
     def __init__(self):
         self.ball = None
     
-    
     def init(self, ball):
         self.ball = ball
-    
+        initState = ballHappy.BallHappy
+        return initState(ball)
     
     def think(self):
         pass
