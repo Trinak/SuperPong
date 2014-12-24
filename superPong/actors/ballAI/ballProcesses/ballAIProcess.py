@@ -13,8 +13,8 @@ class BallAIProcess(Process):
         self.time = 0
         self.aiComponent = comp
         
-    def update(self, time):
-        self.time += time
+    def update(self, elapsedTime):
+        self.time += elapsedTime
         
         if self.time > self.interval:
             self.time = 0
