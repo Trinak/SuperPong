@@ -18,7 +18,6 @@ class JoinGameDialog(BaseDialog):
         
         super().__init__(title, main, **params)
     
-    
     def joinButton(self):
         inputValue = self.input.value
         if len(inputValue) > 15 or len(inputValue) < 7:
@@ -33,12 +32,8 @@ class OptionsDialog(BaseDialog):
         main = BaseTable()
         
         self.select = main.addSelect()
-        
-        
         main.addButton("Apply", self.applyButton)
-        
         super().__init__(title, main, **params)
-    
     
     def applyButton(self):
         pass

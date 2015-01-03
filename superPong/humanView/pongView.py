@@ -17,6 +17,8 @@ class MainMenuView(HumanView):
     def __init__(self):
         super().__init__(None)
         self.type = "MainMenuView"
+        self.setBackground("Images\TitleScreen.png")
+        
         rectUI = (0, 0, Screen.windowWidth, Screen.windowHeight)
         vpad = 5
         self.UI = PongMainMenuUI(rectUI, vpadding = vpad)
