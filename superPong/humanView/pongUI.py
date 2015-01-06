@@ -19,11 +19,6 @@ class PongMainMenuUI(BaseUI):
     def __init__(self, area, **params):
         super().__init__(**params)
         
-        titleText = '{largerFont; {green; Super Pong}}'
-        textRect = (0, 0, 275, 75)
-        self.widget.addText(titleText, textRect, justify = "center")
-        self.widget.tr()
-        
         self.widget.addButton("One Player", self.onePlayerButton)
         self.widget.tr()
         
@@ -37,23 +32,19 @@ class PongMainMenuUI(BaseUI):
         
         self.init(area = area)
     
-    
     def onePlayerButton(self):
         event = Event_ButtonPressed("OnePlayer")
         ECOM.eventManager.queueEvent(event)
-    
 
     def createLANButton(self):
         event = Event_ButtonPressed("CreateGame")
         ECOM.eventManager.queueEvent(event)
-    
     
     def joinGameButton(self):
         dialog = pongWidgets.JoinGameDialog("Join Game")
         event = Event_ButtonPressed("JoinGame")
         ECOM.eventManager.queueEvent(event)
         dialog.open()
-
 
     def optionsButton(self):
         dialog = pongWidgets.OptionsDialog("Options")
@@ -75,7 +66,6 @@ class PongChooseSidesUI(BaseUI):
         self.init(area = area)
         
         ECOM.eventManager.addListener(self.redrawPaddles, Event_AssignPaddle.eventType)
-    
     
     def createUI(self):
         text = '{defaultFont; {green; Choose Sides}}'
@@ -108,15 +98,12 @@ class PongChooseSidesUI(BaseUI):
         self.widget.tr()
         self.widget.addButton("Start Game", self.startGame)
     
-    
     def clearPaddles(self):
         self.widget.clear()
-        
     
     def paddleClicked(self, num):
         event = Event_PaddleClicked(num, self.owner.playerID)
         ECOM.eventManager.queueEvent(event)
-        
     
     def redrawPaddles(self, event):
         self.clearPaddles()
@@ -127,7 +114,6 @@ class PongChooseSidesUI(BaseUI):
             self.playerAssigned[event.paddleNum] = None
         self.createUI()
         self.resize()
-        
     
     def startGame(self):
         event = Event_RequestStartGame()
@@ -144,7 +130,6 @@ class PongUI(BaseUI):
         self.widget.addText(leftText, self.leftTextRect)
         self.widget.addText(rightText, self.rightTextRect, 'right')
         self.init(area = area)
-    
     
     def updateScore(self, left, right):
         leftText = '{defaultFont; {green; Left Score: ' + str(left) + '}}' 

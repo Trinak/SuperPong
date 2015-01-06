@@ -23,7 +23,7 @@ class MainMenuState(BaseState):
     
     def init(self, logic):
         if not logic.gameViewList:
-            view = pongView.MainMenuView()
+            view = pongView.MainMenuView(ECOM.engine.renderer)
             logic.addView(view)
     
     

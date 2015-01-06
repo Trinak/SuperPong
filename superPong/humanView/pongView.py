@@ -14,8 +14,8 @@ from superPong.events.pongEvents import Event_BallGoal, Event_BallCollide
 Screen = ECOM.Screen
 
 class MainMenuView(HumanView):
-    def __init__(self):
-        super().__init__(None)
+    def __init__(self, renderer):
+        super().__init__(renderer)
         self.type = "MainMenuView"
         self.setBackground("Images\TitleScreen.png")
         

@@ -27,7 +27,7 @@ class PongApp(PyHopeEngineApp):
         
     def createLogicAndView(self):
         self.baseLogic = PongLogic()
-        view = MainMenuView()
+        view = MainMenuView(self.renderer)
         self.baseLogic.addView(view)
         state = MainMenuState()
         self.baseLogic.changeState(state)
