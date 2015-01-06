@@ -8,7 +8,7 @@ from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine.actors.components.aiComponent import AIComponent
 from superPong.actors.ballAI.ballProcesses.ballAIProcess import BallAIProcess
 from superPong.actors.ballAI.ballProcesses.ballChooseStateProcess import BallChooseStateProcess
-from superPong.actors.ballAI.pongBallAI import SimpleBallBrain
+from superPong.actors.ballAI.pongBallBrain import SimpleBallBrain
 
 class BallAIComponent(AIComponent):
     def __init__(self):
