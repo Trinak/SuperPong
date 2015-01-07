@@ -123,7 +123,7 @@ class PongChooseSidesUI(BaseUI):
 class PongUI(BaseUI):
     def __init__(self, area, **params):
         super().__init__(**params)
-        leftText = '{defaultFont; {green; Left Score: 0}}' 
+        leftText = '{defaultFont; {green; Left Score: 0}}'
         rightText = '{defaultFont; {green; Right Score: 0}}'
         self.leftTextRect = (0, 0, Screen.halfW, 30)
         self.rightTextRect = (Screen.halfW, 0, Screen.halfW, 30)
