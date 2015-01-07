@@ -15,7 +15,7 @@ from superPong.humanView.pongView import MainMenuView
 class PongApp(PyHopeEngineApp):
     def __init__(self):
         super().__init__()
-        self.caption = "Super Pong"
+        self.caption = "EmotiPong"
         
         if hasattr(sys, "frozen"):
             path = os.path.dirname(sys.executable)

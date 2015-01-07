@@ -123,19 +123,29 @@ class PongChooseSidesUI(BaseUI):
 class PongUI(BaseUI):
     def __init__(self, area, **params):
         super().__init__(**params)
-        leftText = '{defaultFont; {green; Left Score: 0}}'
-        rightText = '{defaultFont; {green; Right Score: 0}}'
-        self.leftTextRect = (0, 0, Screen.halfW, 30)
-        self.rightTextRect = (Screen.halfW, 0, Screen.halfW, 30)
-        self.widget.addText(leftText, self.leftTextRect)
-        self.widget.addText(rightText, self.rightTextRect, 'right')
+        self.textRect = (0, 0, 175, 30)
+        self.createTopUI(0, 0)
         self.init(area = area)
     
+    def createTopUI(self, leftScore, rightScore):
+        leftText = '{defaultFont; {green; Left Score: ' + str(leftScore) + '}}' 
+        rightText = '{defaultFont; {green; Right Score: ' + str(rightScore) + '}}'
+        
+        self.widget.addButton("Images\Chocolate.png", self.test, True)
+        self.widget.addImage("Images\Antidepressant.png")
+        self.widget.addImage("Images\HistoryBook.png")
+        self.widget.addImage("Images\MeanNote.png")
+        self.widget.addImage("Images\PsychoPill.png")
+        self.widget.addImage("Images\SadPicture.png")
+        self.widget.addImage("Images\WinningTicket.png")
+        self.widget.addText(leftText, self.textRect)
+        self.widget.addText(rightText, self.textRect, 'right')
+        
     def updateScore(self, left, right):
-        leftText = '{defaultFont; {green; Left Score: ' + str(left) + '}}' 
-        rightText = '{defaultFont; {green; Right Side: ' + str(right) + '}}'
         self.widget.remove_row(0)
-        self.widget.addText(leftText, self.leftTextRect)
-        self.widget.addText(rightText, self.rightTextRect, 'right')
+        self.createTopUI(left, right)
+    
+    def test(self):
+        pass
         
         
