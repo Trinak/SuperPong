@@ -93,7 +93,6 @@ class SimpleBallBrain(BallBrain):
             self.emotionalScores[Moods.Bored] = max(min((self.emotionalScores[Moods.Bored] - 15), 100), 0)
         elif event.item == "Psychopill":
             self.emotionalScores[Moods.Crazy] = max(min((self.emotionalScores[Moods.Crazy] + 30), 100), 0)
-
         
         
         

@@ -7,7 +7,7 @@ Created on Jul 3, 2013
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import BaseUI
 from pyHopeEngine import Event_ButtonPressed
-from superPong.events.pongEvents import Event_PaddleClicked, Event_AssignPaddle, Event_RequestStartGame
+from superPong.events.pongEvents import Event_PaddleClicked, Event_AssignPaddle, Event_RequestStartGame, Event_GiveBallItem
 from superPong.humanView import pongWidgets
 
 from pgu import gui
@@ -160,7 +160,32 @@ class PongUI(BaseUI):
         self.widget.remove_row(0)
         self.createTopUI(left, right)
     
-    def test(self):
-        pass
+    def giveChocolate(self):
+        event = Event_GiveBallItem("Chocolate")
+        ECOM.eventManager.queueEvent(event)
+    
+    def giveAntidepressant(self):
+        event = Event_GiveBallItem("AntiDepressant")
+        ECOM.eventManager.queueEvent(event)
+    
+    def giveHistoryBook(self):
+        event = Event_GiveBallItem("HistoryBook")
+        ECOM.eventManager.queueEvent(event)
+    
+    def giveMeanNote(self):
+        event = Event_GiveBallItem("MeanNote")
+        ECOM.eventManager.queueEvent(event)
+    
+    def givePsychoPill(self):
+        event = Event_GiveBallItem("PsychoPill")
+        ECOM.eventManager.queueEvent(event)
+    
+    def giveSadPicture(self):
+        event = Event_GiveBallItem("SadPicture")
+        ECOM.eventManager.queueEvent(event)
+        
+    def giveWinningTicket(self):
+        event = Event_GiveBallItem("WinningTicket")
+        ECOM.eventManager.queueEvent(event)
         
         
