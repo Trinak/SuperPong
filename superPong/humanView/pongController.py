@@ -10,6 +10,7 @@ from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import KeyboardHandler
 from pyHopeEngine import Event_Accelerate, Event_Decelerate
 from superPong.events.pongEvents import Event_GiveBallItem
+from superPong.actors.items.items import *
 
 ACCELERATION = 100
 
@@ -21,7 +22,6 @@ class PaddleController(KeyboardHandler):
         self.keyMoveDown = None
         self.giveChocolate = None
         self.givePsychoticPill = None
-        self.giveAntiDepressant = None
         self.giveHistoryBook = None
         self.giveMeanNote = None
         self.giveSadPicture = None
@@ -51,31 +51,27 @@ class PaddleController(KeyboardHandler):
             ECOM.eventManager.queueEvent(event)
         
         if key == self.giveChocolate:
-            event = Event_GiveBallItem("Chocolate")
+            event = Event_GiveBallItem(Chocolate())
             ECOM.eventManager.queueEvent(event)
         
         if key == self.givePsychoticPill:
-            event = Event_GiveBallItem("Psychopill")
-            ECOM.eventManager.queueEvent(event)
-        
-        if key == self.giveAntiDepressant:
-            event = Event_GiveBallItem("Antidepressant")
+            event = Event_GiveBallItem(PsychoPill())
             ECOM.eventManager.queueEvent(event)
 
         if key == self.giveHistoryBook:
-            event = Event_GiveBallItem("HistoryBook")
+            event = Event_GiveBallItem(HistoryBook())
             ECOM.eventManager.queueEvent(event)
 
         if key == self.giveMeanNote:
-            event = Event_GiveBallItem("MeanNote")
+            event = Event_GiveBallItem(MeanNote())
             ECOM.eventManager.queueEvent(event)
 
         if key == self.giveSadPicture:
-            event = Event_GiveBallItem("SadPicture")
+            event = Event_GiveBallItem(SadPicture())
             ECOM.eventManager.queueEvent(event)
             
         if key == self.giveWinningTicket:
-            event = Event_GiveBallItem("WinningTicket")
+            event = Event_GiveBallItem(WinningTicket())
             ECOM.eventManager.queueEvent(event)
 
 

@@ -6,6 +6,7 @@ Created on Dec 23, 2014
 
 from pyHopeEngine import Process
 from pyHopeEngine import engineCommon as ECOM
+from superPong.actors.items.items import *
 from superPong.events.pongEvents import Event_GiveBallItem, Event_BallGoal
 
 class PaddleGiveItemProcess(Process):
@@ -22,10 +23,10 @@ class PaddleGiveItemProcess(Process):
         
         if self.time > self.interval:
             if self.myScore > self.enemyScore:
-                event = Event_GiveBallItem("HistoryBook")
+                event = Event_GiveBallItem(HistoryBook())
                 ECOM.eventManager.queueEvent(event)
             elif self.myScore < self.enemyScore:
-                event = Event_GiveBallItem("MeanNote")
+                event = Event_GiveBallItem(MeanNote())
                 ECOM.eventManager.queueEvent(event)
         
     #happy - favors no one

@@ -7,8 +7,10 @@ Created on Jul 3, 2013
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import BaseUI
 from pyHopeEngine import Event_ButtonPressed
-from superPong.events.pongEvents import Event_PaddleClicked, Event_AssignPaddle, Event_RequestStartGame, Event_GiveBallItem
 from superPong.humanView import pongWidgets
+from superPong.actors.items.items import *
+from superPong.events.pongEvents import Event_PaddleClicked, Event_AssignPaddle, Event_RequestStartGame, Event_GiveBallItem
+
 
 from pgu import gui
 
@@ -131,20 +133,17 @@ class PongUI(BaseUI):
         leftText = '{defaultFont; {green; Left Score: ' + str(leftScore) + '}}' 
         rightText = '{defaultFont; {green; Right Score: ' + str(rightScore) + '}}'
         
-        self.widget.addButton("Images\Chocolate.png", self.test, True)
-        self.widget.addButton("Images\Antidepressant.png", self.test, True)
-        self.widget.addButton("Images\HistoryBook.png", self.test, True)
-        self.widget.addButton("Images\MeanNote.png", self.test, True)
-        self.widget.addButton("Images\PsychoPill.png", self.test, True)
-        self.widget.addButton("Images\SadPicture.png", self.test, True)
-        self.widget.addButton("Images\WinningTicket.png", self.test, True)
+        self.widget.addButton("Images\Chocolate.png", self.giveChocolate, True)
+        self.widget.addButton("Images\HistoryBook.png", self.giveHistoryBook, True)
+        self.widget.addButton("Images\MeanNote.png", self.giveMeanNote, True)
+        self.widget.addButton("Images\PsychoPill.png", self.givePsychoPill, True)
+        self.widget.addButton("Images\SadPicture.png", self.giveSadPicture, True)
+        self.widget.addButton("Images\WinningTicket.png", self.giveWinningTicket, True)
         self.widget.addSpacer(10, 10)
         self.widget.addText(leftText, self.textRect)
         self.widget.addText(rightText, self.textRect, 'right')
         self.widget.addSpacer(10, 10)
         self.widget.addImage("Images\Chocolate.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\Antidepressant.png")
         self.widget.addSpacer(10, 10)
         self.widget.addImage("Images\HistoryBook.png")
         self.widget.addSpacer(10, 10)
@@ -161,31 +160,27 @@ class PongUI(BaseUI):
         self.createTopUI(left, right)
     
     def giveChocolate(self):
-        event = Event_GiveBallItem("Chocolate")
-        ECOM.eventManager.queueEvent(event)
-    
-    def giveAntidepressant(self):
-        event = Event_GiveBallItem("AntiDepressant")
+        event = Event_GiveBallItem(Chocolate())
         ECOM.eventManager.queueEvent(event)
     
     def giveHistoryBook(self):
-        event = Event_GiveBallItem("HistoryBook")
+        event = Event_GiveBallItem(HistoryBook())
         ECOM.eventManager.queueEvent(event)
     
     def giveMeanNote(self):
-        event = Event_GiveBallItem("MeanNote")
+        event = Event_GiveBallItem(MeanNote())
         ECOM.eventManager.queueEvent(event)
     
     def givePsychoPill(self):
-        event = Event_GiveBallItem("PsychoPill")
+        event = Event_GiveBallItem(PsychoPill())
         ECOM.eventManager.queueEvent(event)
     
     def giveSadPicture(self):
-        event = Event_GiveBallItem("SadPicture")
+        event = Event_GiveBallItem(SadPicture())
         ECOM.eventManager.queueEvent(event)
         
     def giveWinningTicket(self):
-        event = Event_GiveBallItem("WinningTicket")
+        event = Event_GiveBallItem(WinningTicket())
         ECOM.eventManager.queueEvent(event)
         
         

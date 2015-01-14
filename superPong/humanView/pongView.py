@@ -56,8 +56,9 @@ class PongHumanView(HumanView):
         self.type = "PongHumanView"
         rectUI = (0, 0, Screen.windowWidth, 30)
         self.UI = PongUI(rectUI)
+        self.addScreenElement(self.scene) 
         self.addScreenElement(self.UI)
-        self.addScreenElement(self.scene)
+        
         self.audio.addSound("Sounds/goal.wav", "goal")
         self.audio.addSound("Sounds/ballCollide.ogg", "collide")
         
@@ -65,14 +66,18 @@ class PongHumanView(HumanView):
         eventManager.addListener(self.updateScore, Event_BallGoal.eventType)
         eventManager.addListener(self.ballCollide, Event_BallCollide.eventType)
         eventManager.addListener(self.setActor, Event_SetControlledActor.eventType)
-        
+    
+    def onPygameEvent(self, event):
+        handled = super().onPygameEvent(event)
+        if not handled:
+            self.UI.onPygameEvent(event)    
     
     def setControlledActor(self, actorID):
         super().setControlledActor(actorID)
         self.paddleController = PaddleOneController()
         self.paddleController.setControlledActor(self.controlledActor)
         self.keyboardHandler = self.paddleController
-       
+    
     
     def setActor(self, event):
         self.setControlledActor(event.actorID)

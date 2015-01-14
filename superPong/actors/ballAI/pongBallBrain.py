@@ -36,7 +36,7 @@ class BallBrain(object):
 class SimpleBallBrain(BallBrain):
     def __init__(self):
         super().__init__()
-        self.emotionalScores = [75, 25, 25, 10, 50, 50]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
+        self.emotionalScores = [75, 25, 25, 10, 50, 10]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
         self.emotions = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
         self.hitLeft = 0
         self.hitRight = 0
@@ -71,28 +71,8 @@ class SimpleBallBrain(BallBrain):
         elif paddle.type == 'PaddleTwo':
             self.hitRight += 1
     
-    
     def handleItem(self, event):
-        if event.item == "Chocolate":
-            self.emotionalScores[Moods.Happy] = max(min((self.emotionalScores[Moods.Happy] + 30), 100), 0)
-            self.emotionalScores[Moods.Excited] = max(min((self.emotionalScores[Moods.Excited] + 15), 100), 0)
-        elif event.item == "MeanNote":
-            self.emotionalScores[Moods.Angry] = max(min((self.emotionalScores[Moods.Angry] + 30), 100), 0)
-            self.emotionalScores[Moods.Sad] = max(min((self.emotionalScores[Moods.Sad] + 15), 100), 0)
-        elif event.item == "AntiDepressant":
-            self.emotionalScores[Moods.Sad] = max(min((self.emotionalScores[Moods.Sad] - 15), 100), 0)
-            self.emotionalScores[Moods.Angry] = max(min((self.emotionalScores[Moods.Angry] - 10), 100), 0)
-        elif event.item == "SadPicture":
-            self.emotionalScores[Moods.Sad] = max(min((self.emotionalScores[Moods.Sad] + 30), 100), 0)
-            self.emotionalScores[Moods.Happy] = max(min((self.emotionalScores[Moods.Happy] - 15), 100), 0)
-        elif event.item == "HistoryBook":
-            self.emotionalScores[Moods.Bored] = max(min((self.emotionalScores[Moods.Bored] + 30), 100), 0)
-            self.emotionalScores[Moods.Excited] = max(min((self.emotionalScores[Moods.Excited] - 15), 100), 0)
-        elif event.item =="WinningTicket":
-            self.emotionalScores[Moods.Excited] = max(min((self.emotionalScores[Moods.Excited] + 30), 100), 0)
-            self.emotionalScores[Moods.Bored] = max(min((self.emotionalScores[Moods.Bored] - 15), 100), 0)
-        elif event.item == "Psychopill":
-            self.emotionalScores[Moods.Crazy] = max(min((self.emotionalScores[Moods.Crazy] + 30), 100), 0)
+        self.emotionalScores = event.item.updateEmotions(self.emotionalScores)
         
         
         
