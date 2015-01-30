@@ -6,7 +6,6 @@ Created on Oct 30, 2014
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine.actors.components.aiComponent import AIComponent
-from superPong.actors.ballAI.ballProcesses.ballAIProcess import BallAIProcess
 from superPong.actors.ballAI.ballProcesses.ballChooseStateProcess import BallChooseStateProcess
 from superPong.actors.ballAI.pongBallBrain import SimpleBallBrain
 
@@ -20,9 +19,7 @@ class BallAIComponent(AIComponent):
         brainElement = element.find("Brain")
         self.setBrain(brainElement.text)
         ballProcess = BallChooseStateProcess(self)
-        aiProcess = BallAIProcess(self)
         ECOM.engine.baseLogic.processManager.addProcess(ballProcess)
-        #ECOM.engine.baseLogic.processManager.addProcess(aiProcess)
         
     def postInit(self):
         self.currentState = self.brain.init(self.owner)
@@ -44,10 +41,6 @@ class BallAIComponent(AIComponent):
             self.setState(state)
     
     def update(self):
-        if self.currentState is not None:
-            self.currentState.update()
-    
-    def updateProcess(self):
         if self.currentState is not None:
             self.currentState.update()
     

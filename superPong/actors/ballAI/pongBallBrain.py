@@ -9,6 +9,7 @@ from enum import IntEnum
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
+from superPong.actors.ballAI.ballProcesses.ballHandleItemProcess import BallHandleItemProcess
 from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem
 
 class Moods(IntEnum):
@@ -41,6 +42,7 @@ class SimpleBallBrain(BallBrain):
         self.hitLeft = 0
         self.hitRight = 0
         self.name = "SimpleBallBrain"
+        self.handleItemProcess = None
         ECOM.eventManager.addListener(self.checkCollide, Event_BallCollide.eventType)
         ECOM.eventManager.addListener(self.handleItem, Event_GiveBallItem.eventType)
     
@@ -72,7 +74,10 @@ class SimpleBallBrain(BallBrain):
             self.hitRight += 1
     
     def handleItem(self, event):
-        self.emotionalScores = event.item.updateEmotions(self.emotionalScores)
-        
+        if self.handleItemProcess is not None:
+            self.handleItemProcess = BallHandleItemProcess(event.item, self)
+            ECOM.engine.baseLogic.processManager.addProcess(self.handleItemProcess)
+        else:
+            self.handleItemProcess.addItem(event.item)
         
         

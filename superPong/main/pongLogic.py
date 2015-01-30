@@ -8,7 +8,7 @@ from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import BaseLogic
 from pyHopeEngine import Event_ClientConnected, Event_Accelerate, Event_Decelerate, Event_ApplyImpulse
 from superPong.actors.pongActorManager import PongActorManager
-from superPong.events.pongEvents import Event_BallGoal, Event_BallCollide, Event_PaddleClicked, Event_AssignPaddle, Event_AssignPlayerID, Event_RequestStartGame, Event_StartGame
+from superPong.events.pongEvents import Event_BallGoal, Event_BallCollide, Event_PaddleClicked, Event_AssignPaddle, Event_AssignPlayerID, Event_RequestStartGame, Event_StartGame, Event_AddBall
 
 class PongLogic(BaseLogic):
     def __init__(self):
@@ -29,6 +29,7 @@ class PongLogic(BaseLogic):
         ECOM.eventManager.addListener(self.clientConnected, Event_ClientConnected.eventType)
         ECOM.eventManager.addListener(self.assignPlayerID, Event_AssignPlayerID.eventType)
         ECOM.eventManager.addListener(self.requestStartGame, Event_RequestStartGame.eventType)
+        ECOM.eventManager.addListener(self.addBall, Event_AddBall.eventType)
         
     def setupCollisionHandlers(self):
         def ballGoalLeft(space, arbiter):
@@ -87,6 +88,9 @@ class PongLogic(BaseLogic):
             eMan.addListener(self.networkEventForwarder.forwardEvent, Event_StartGame.eventType)
         else:
             eMan.addListener(self.networkEventForwarder.forwardEvent, Event_PaddleClicked.eventType)
+    
+    def addBall(self, event):
+        self.createActor(event.resource, "Ball")
     
     def accelerate(self, event):
         actor = self.actorManager.getActor(event.actorID)

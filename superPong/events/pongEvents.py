@@ -64,3 +64,10 @@ class Event_GiveBallItem(BaseEvent):
     
     def __init__(self, item):
         self.item = item
+
+
+class Event_AddBall(BaseEvent):
+    eventType = "AddBall"
+    
+    def __init____(self, emotion):
+        self.emotion = emotion

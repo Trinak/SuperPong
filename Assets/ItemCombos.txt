@@ -1,0 +1,24 @@
+Chocolate		WinningTicket		MeanNote			Happy		Excited		Angry
+PsychoPill		SadPicture			HistoryBook			Crazy		Sad			Bored	
+
+Anything + itself = Greater effect than normal
+
+Chocolate + (MeanNote, SadPicture, HistoryBook) = Decrease effect of other items, cancel Crazy balls
+Chocolate + WinningTicket = Enhanced both, cancels Angry/Sad/Bored balls
+Chocolate + PsychoPill = Create second Happy Ball
+
+MeanNote + SadPicture = Enhanced both, cancels Happy/Excited balls
+MeanNote + HistoryBook = Cancel each other
+MeanNote + WinningTicket = Enhanced Bored, cancels Crazy balls
+MeanNote + PsychoPill = Create second Angry Ball
+
+SadPicture + HistoryBook = Enhances Angry, cancels Happy/Excited balls
+SadPicture + WinningTicket = Cancel each other, cancels Bored balls
+SadPicture + PsychoPill = Create second Sad Ball
+
+HistoryBook + WinningTicket = Decrease both, cancel Angry/Sad balls
+HistoryBook + PsychoPill = Create second Bored Ball
+
+WinningTicket + PsychoPill = Create second Excited Ball
+
+PsychoPill + PsychoPill = Create ball of all states
