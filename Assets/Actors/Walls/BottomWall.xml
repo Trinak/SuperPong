@@ -1,4 +1,4 @@
-<Actor type="Wall" resource="Actors\BottomWall.xml">
+<Actor type="Wall" resource="Actors\Walls\BottomWall.xml">
 	<TransformComponent>
 		<Position>(640, 795)</Position>
 		<Size>(1, 1)</Size>

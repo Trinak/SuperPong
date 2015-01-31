@@ -40,7 +40,8 @@ class BallAIComponent(AIComponent):
         if self.brain is not None:
             state = self.brain.think()
             
-            self.setState(state)
+            if state is not None:
+                self.setState(state)
     
     def update(self):
         if self.currentState is not None:

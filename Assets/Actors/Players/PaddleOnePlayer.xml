@@ -1,4 +1,4 @@
-<Actor type="PaddleOne" resource="Actors\PaddleOne.xml">
+<Actor type="PaddleOne" resource="Actors\Players\PaddleOne.xml">
 	<TransformComponent>
 		<Direction>(0, 1)</Direction>
 		<Position>(25, 400)</Position>

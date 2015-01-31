@@ -1,4 +1,4 @@
-<Actor type="Ball" resource="Actors\PongBallAdd.xml">
+<Actor type="Ball" resource="Actors\AI\PongBallAdd.xml">
 	<TransformComponent>
 		<Direction>Random</Direction>
 		<Position>(640, 400)</Position>

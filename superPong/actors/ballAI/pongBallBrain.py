@@ -10,7 +10,7 @@ from enum import IntEnum
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
 from superPong.actors.ballAI.ballProcesses.ballHandleItemProcess import BallHandleItemProcess
-from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem
+from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem, Event_RequestCurrentScore
 
 class Moods(IntEnum):
     Happy = 0
@@ -24,8 +24,6 @@ class Moods(IntEnum):
 class BasicBallBrain(object):
     def __init__(self):
         self.ball = None
-        self.hitLeft = 0
-        self.hitRight = 0
         self.name = "BasicBallBrain"
     
     def init(self, ball):
@@ -34,7 +32,7 @@ class BasicBallBrain(object):
         return initState(ball)
     
     def think(self):
-        pass
+        return None
 
 
 class MainBallBrain(BasicBallBrain):
@@ -44,7 +42,6 @@ class MainBallBrain(BasicBallBrain):
         self.emotionalScores = [75, 25, 25, 10, 50, 10]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
         self.emotionalStates = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
         self.handleItemProcess = None
-        ECOM.eventManager.addListener(self.checkCollide, Event_BallCollide.eventType)
         ECOM.eventManager.addListener(self.handleItem, Event_GiveBallItem.eventType)
     
     def think(self):
@@ -58,21 +55,6 @@ class MainBallBrain(BasicBallBrain):
             
         return None
        
-    def checkCollide(self, event):
-        actor1 = ECOM.actorManager.getActor(event.actorID1)
-        actor2 = ECOM.actorManager.getActor(event.actorID2)
-        
-        if actor1.actorID == self.ball.actorID:
-            paddle = actor2
-        elif actor2.actorID == self.ball.actorID:
-            paddle = actor1
-        else:
-            return
-        
-        if paddle.type == 'PaddleOne':
-            self.hitLeft += 1
-        elif paddle.type == 'PaddleTwo':
-            self.hitRight += 1
     
     def handleItem(self, event):
         if self.handleItemProcess is None:

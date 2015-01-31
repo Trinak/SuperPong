@@ -6,7 +6,7 @@ Created on Nov 2, 2014
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState.ballState import BallState
-from superPong.events.pongEvents import Event_BallGoal
+from superPong.events.pongEvents import Event_BallGoal, Event_RequestCurrentScore
 
 class BallBored(BallState): #Goal: Bored with game. Supports whoever is winning. 
     def __init__(self, ball):
@@ -14,10 +14,12 @@ class BallBored(BallState): #Goal: Bored with game. Supports whoever is winning.
         transformComp = self.ball.getComponent('TransformComponent')
         pos = transformComp.pos
         rotation = transformComp.rotation
-        self.leftScore = ECOM.engine.baseLogic.leftScore
-        self.rightScore = ECOM.engine.baseLogic.rightScore
+        self.leftScore = 0
+        self.rightScore = 0
         self.MAX_VELOCITY = 500
         self.MIN_VELOCITY = 150
+        event = Event_RequestCurrentScore(self)
+        ECOM.eventManager.triggerEvent(event)
         
         file = 'Images\PongBallBored.png'
         renderComp = self.ball.getComponent('RenderComponent')
@@ -25,6 +27,10 @@ class BallBored(BallState): #Goal: Bored with game. Supports whoever is winning.
         renderComp.sceneNode.addSpriteImage(file, pos, rotation)
         
         ECOM.eventManager.addListener(self.handleGoal, Event_BallGoal.eventType)
+    
+    def setScores(self, leftScore, rightScore):
+        self.leftScore = leftScore
+        self.rightScore = rightScore
     
     def update(self):
         physicsComp = self.ball.getComponent("PhysicsComponent")

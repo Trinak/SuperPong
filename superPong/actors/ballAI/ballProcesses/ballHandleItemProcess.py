@@ -22,8 +22,8 @@ class BallHandleItemProcess(Process):
             if self.itemTwo is None:
                 self.itemOne.updateEmotions(self.ballBrain.emotionalScores)
             else:
-                self.itemOne.comboUpdateEmotions(self.ballBrain.emotionalScores, self.itemTwo.itemName)
-                self.itemTwo.comboUpdateEmotions(self.ballBrain.emotionalScores, self.itemOne.itemName)
+                self.itemOne.comboUpdateEmotions(self.ballBrain.emotionalScores, self.itemTwo.name)
+                self.itemTwo.comboUpdateEmotions(self.ballBrain.emotionalScores, self.itemOne.name)
     
             self.succeed()
             

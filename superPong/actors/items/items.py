@@ -17,8 +17,10 @@ ENHANCE_MIN_EMO = MIN_EMO_CHANGE * 2
 REDUCED_EMO = MIN_EMO_CHANGE / 2
 
 class BaseItem:
+    name = None
+    
     def __init__(self):
-        self.name = None
+        pass
     
     def updateEmotions(self, emotions):
         raise NotImplementedError(self.name + " didn't implement updateEmotions")
@@ -31,15 +33,15 @@ class BaseItem:
 
 
 class Chocolate(BaseItem):
+    name = "Chocolate"
+    
     def __init__(self):
-        self.name = "Chocolate"
+        pass
     
     def updateEmotions(self, emotions):
         emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + MAX_EMO_CHANGE)
         emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + MIN_EMO_CHANGE)
         emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - MIN_EMO_CHANGE)
-        event = Event_AddBall(ballHappy.BallHappy)
-        ECOM.eventManager.queueEvent(event)
         
     def comboUpdateEmotions(self, emotions, itemName):
         if itemName == WinningTicket.name:
@@ -51,8 +53,10 @@ class Chocolate(BaseItem):
             ECOM.eventManager.queueEvent(event)
 
 class MeanNote(BaseItem):
+    name = "MeanNote"
+    
     def __init__(self):
-        self.name = "MeanNote"
+        pass
 
     def updateEmotions(self, emotions):
         emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + MAX_EMO_CHANGE)
@@ -70,11 +74,16 @@ class MeanNote(BaseItem):
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO)
         elif itemName == WinningTicket.name:
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MIN_EMO)
+        elif itemName == PsychoPill.name:
+            event = Event_AddBall(ballAngry.BallAngry)
+            ECOM.eventManager.queueEvent(event)
 
 
 class SadPicture(BaseItem):
+    name = "SadPicture"
+    
     def __init__(self):
-        self.name = "SadPicture"
+        pass
 
     def updateEmotions(self, emotions):
         emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + MAX_EMO_CHANGE)
@@ -92,11 +101,16 @@ class SadPicture(BaseItem):
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO)
         elif itemName == HistoryBook.name:
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
+        elif itemName == PsychoPill.name:
+            event = Event_AddBall(ballSad.BallSad)
+            ECOM.eventManager.queueEvent(event)
 
 
 class HistoryBook(BaseItem):
+    name = "HistoryBook"
+    
     def __init__(self):
-        self.name = "HistoryBook"
+        pass
     
     def updateEmotions(self, emotions):
         emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + MAX_EMO_CHANGE)
@@ -108,11 +122,16 @@ class HistoryBook(BaseItem):
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - REDUCED_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - REDUCED_EMO)
+        elif itemName == PsychoPill.name:
+            event = Event_AddBall(ballBored.BallBored)
+            ECOM.eventManager.queueEvent(event)
     
 
 class WinningTicket(BaseItem):
+    name = "WinningTicket"
+    
     def __init__(self):
-        self.name = "WinningTicket"
+        pass
     
     def updateEmotions(self, emotions):
         emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + MAX_EMO_CHANGE)
@@ -124,14 +143,39 @@ class WinningTicket(BaseItem):
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MAX_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MIN_EMO)
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] - ENHANCE_MIN_EMO)
+        elif itemName == PsychoPill.name:
+            event = Event_AddBall(ballExcited.BallExcited)
+            ECOM.eventManager.queueEvent(event)
     
 
 class PsychoPill(BaseItem):
+    name = "PsychoPill"
+    isFirstPill = True
+    
     def __init__(self):
-        self.name = "PsychoPill"
+        pass
 
     def updateEmotions(self, emotions):
         emotions[Moods.Crazy] = self.setScore(emotions[Moods.Crazy] + MAX_EMO_CHANGE)
         
     def comboUpdateEmotions(self, emotions, itemName):
-        pass
+        if itemName == PsychoPill.name and PsychoPill.isFirstPill:
+            event = Event_AddBall(ballHappy.BallHappy)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_AddBall(ballAngry.BallAngry)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_AddBall(ballSad.BallSad)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_AddBall(ballBored.BallBored)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_AddBall(ballExcited.BallExcited)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_AddBall(ballCrazy.BallCrazy)
+            ECOM.eventManager.queueEvent(event)
+            
+            PsychoPill.isFirstPill = False
+        elif not PsychoPill.isFirstPill:
+            PsychoPill.isFirstPill = True
+        
+        
+            
