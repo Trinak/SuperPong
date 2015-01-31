@@ -90,7 +90,7 @@ class PongLogic(BaseLogic):
             eMan.addListener(self.networkEventForwarder.forwardEvent, Event_PaddleClicked.eventType)
     
     def addBall(self, event):
-        ball = self.createActor("Actors\AI\PongBall.xml", "Ball")
+        ball = self.createActor("Actors\PongBallAdd.xml", "Ball")
         ballAI = ball.getComponent("AIComponent")
         ballAI.setState(event.emotion)
     

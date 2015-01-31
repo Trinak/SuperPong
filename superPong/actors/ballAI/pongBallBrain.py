@@ -21,9 +21,12 @@ class Moods(IntEnum):
     Crazy = 5
 
 
-class BallBrain(object):
+class BasicBallBrain(object):
     def __init__(self):
         self.ball = None
+        self.hitLeft = 0
+        self.hitRight = 0
+        self.name = "BasicBallBrain"
     
     def init(self, ball):
         self.ball = ball
@@ -34,14 +37,12 @@ class BallBrain(object):
         pass
 
 
-class SimpleBallBrain(BallBrain):
+class MainBallBrain(BasicBallBrain):
     def __init__(self):
         super().__init__()
+        self.name = "MainBallBrain"
         self.emotionalScores = [75, 25, 25, 10, 50, 10]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
         self.emotionalStates = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
-        self.hitLeft = 0
-        self.hitRight = 0
-        self.name = "SimpleBallBrain"
         self.handleItemProcess = None
         ECOM.eventManager.addListener(self.checkCollide, Event_BallCollide.eventType)
         ECOM.eventManager.addListener(self.handleItem, Event_GiveBallItem.eventType)

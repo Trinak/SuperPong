@@ -7,7 +7,7 @@ Created on Oct 30, 2014
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine.actors.components.aiComponent import AIComponent
 from superPong.actors.ballAI.ballProcesses.ballChooseStateProcess import BallChooseStateProcess
-from superPong.actors.ballAI.pongBallBrain import SimpleBallBrain
+from superPong.actors.ballAI.pongBallBrain import MainBallBrain, BasicBallBrain
 
 class BallAIComponent(AIComponent):
     def __init__(self):
@@ -26,8 +26,10 @@ class BallAIComponent(AIComponent):
         self.currentState.init()
     
     def setBrain(self, name):
-        if name == "SimpleBallBrain":
-            self.brain = SimpleBallBrain()
+        if name == "MainBallBrain":
+            self.brain = MainBallBrain()
+        elif name == "BasicBallBrain":
+            self.brain = BasicBallBrain()
     
     def setState(self, state):
         self.currentState.cleanUp()

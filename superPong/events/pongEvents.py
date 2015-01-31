@@ -22,6 +22,13 @@ class Event_BallCollide(BaseEvent):
         self.actorID2 = actorID2
 
 
+class Event_RequestCurrentScore(BaseEvent):
+    eventType = "RequestCurrentScore"
+    
+    def __init__(self, requestor):
+        self.requestor = requestor
+        
+
 class Event_PaddleClicked(BaseEvent):
     eventType = "PaddleClicked"
     

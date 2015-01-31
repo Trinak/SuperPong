@@ -1,4 +1,4 @@
-<Actor type="Ball" resource="Actors\PongBall.xml">
+<Actor type="Ball" resource="Actors\PongBallAdd.xml">
 	<TransformComponent>
 		<Direction>Random</Direction>
 		<Position>(640, 400)</Position>
@@ -20,6 +20,6 @@
 	</SpriteRenderComponent>
 	
 	<BallAIComponent>
-		<Brain>MainBallBrain</Brain>
+		<Brain>BasicBallBrain</Brain>
 	</BallAIComponent>
 </Actor>
