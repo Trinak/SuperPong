@@ -69,5 +69,5 @@ class Event_GiveBallItem(BaseEvent):
 class Event_AddBall(BaseEvent):
     eventType = "AddBall"
     
-    def __init____(self, emotion):
+    def __init__(self, emotion):
         self.emotion = emotion

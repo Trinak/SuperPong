@@ -38,7 +38,7 @@ class SimpleBallBrain(BallBrain):
     def __init__(self):
         super().__init__()
         self.emotionalScores = [75, 25, 25, 10, 50, 10]; # 0 = Happy, 1 = Angry, 2 = Sad, 3 = Bored, 4 = Excited, 5 = Crazy
-        self.emotions = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
+        self.emotionalStates = [ballHappy.BallHappy, ballAngry.BallAngry, ballSad.BallSad, ballBored.BallBored, ballExcited.BallExcited, ballCrazy.BallCrazy];
         self.hitLeft = 0
         self.hitRight = 0
         self.name = "SimpleBallBrain"
@@ -51,7 +51,7 @@ class SimpleBallBrain(BallBrain):
         
         for i in range(len(self.emotionalScores)):
             if rand < self.emotionalScores[i]:
-                return self.emotions[i]
+                return self.emotionalStates[i]
             
             rand -= self.emotionalScores[i]
             
@@ -74,7 +74,7 @@ class SimpleBallBrain(BallBrain):
             self.hitRight += 1
     
     def handleItem(self, event):
-        if self.handleItemProcess is not None:
+        if self.handleItemProcess is None:
             self.handleItemProcess = BallHandleItemProcess(event.item, self)
             ECOM.engine.baseLogic.processManager.addProcess(self.handleItemProcess)
         else:

@@ -4,7 +4,11 @@ Created on Jan 13, 2015
 @author: Devon
 '''
 
+from pyHopeEngine import engineCommon as ECOM
+from superPong.actors.ballAI.ballState import *
+from superPong.events.pongEvents import Event_AddBall
 from superPong.actors.ballAI.pongBallBrain import Moods
+
 
 MIN_EMO_CHANGE = 5
 MAX_EMO_CHANGE = MIN_EMO_CHANGE * 3
@@ -34,12 +38,17 @@ class Chocolate(BaseItem):
         emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + MAX_EMO_CHANGE)
         emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + MIN_EMO_CHANGE)
         emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - MIN_EMO_CHANGE)
-    
+        event = Event_AddBall(ballHappy.BallHappy)
+        ECOM.eventManager.queueEvent(event)
+        
     def comboUpdateEmotions(self, emotions, itemName):
         if itemName == WinningTicket.name:
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MAX_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
+        elif itemName == PsychoPill.name:
+            event = Event_AddBall(ballHappy.BallHappy)
+            ECOM.eventManager.queueEvent(event)
 
 class MeanNote(BaseItem):
     def __init__(self):

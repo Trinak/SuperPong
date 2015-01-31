@@ -90,7 +90,9 @@ class PongLogic(BaseLogic):
             eMan.addListener(self.networkEventForwarder.forwardEvent, Event_PaddleClicked.eventType)
     
     def addBall(self, event):
-        self.createActor(event.resource, "Ball")
+        ball = self.createActor("Actors\AI\PongBall.xml", "Ball")
+        ballAI = ball.getComponent("AIComponent")
+        ballAI.setState(event.emotion)
     
     def accelerate(self, event):
         actor = self.actorManager.getActor(event.actorID)
