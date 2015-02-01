@@ -38,6 +38,10 @@ class PongActorManager(ActorManager):
     def getBall(self, num = 0):
         return self.balls[num]
     
+    def destroyBall(self, emotion = None):
+        if emotion is None:
+            self.destroyActor(self.getBall().actorID)
+    
     def restartBall(self, num = 0):
         pos = Vec2d(ECOM.Screen.halfW, ECOM.Screen.halfH)
         x = random.choice((-1, 1))

@@ -14,7 +14,7 @@ MIN_EMO_CHANGE = 5
 MAX_EMO_CHANGE = MIN_EMO_CHANGE * 3
 ENHANCE_MAX_EMO = MIN_EMO_CHANGE * 4
 ENHANCE_MIN_EMO = MIN_EMO_CHANGE * 2
-REDUCED_EMO = MIN_EMO_CHANGE / 2
+REDUCED_EMO = round(MIN_EMO_CHANGE / 2)
 
 class BaseItem:
     name = None
@@ -44,7 +44,11 @@ class Chocolate(BaseItem):
         emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - MIN_EMO_CHANGE)
         
     def comboUpdateEmotions(self, emotions, itemName):
-        if itemName == WinningTicket.name:
+        if itemName == Chocolate.name:
+            emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MAX_EMO)
+            emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MIN_EMO)
+            emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
+        elif itemName == WinningTicket.name:
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MAX_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
@@ -64,7 +68,11 @@ class MeanNote(BaseItem):
         emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - MIN_EMO_CHANGE)
 
     def comboUpdateEmotions(self, emotions, itemName):
-        if itemName == Chocolate.name:
+        if itemName == MeanNote.name:
+            emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MAX_EMO)
+            emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MIN_EMO)
+            emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO) 
+        elif itemName == Chocolate.name:
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + REDUCED_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - REDUCED_EMO)
@@ -91,7 +99,11 @@ class SadPicture(BaseItem):
         emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - MIN_EMO_CHANGE)
 
     def comboUpdateEmotions(self, emotions, itemName):
-        if itemName == Chocolate.name:
+        if itemName == SadPicture.name:
+            emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MAX_EMO)
+            emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
+            emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO)  
+        elif itemName == Chocolate.name:
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MIN_EMO)
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + REDUCED_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - REDUCED_EMO)
@@ -118,7 +130,11 @@ class HistoryBook(BaseItem):
         emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - MIN_EMO_CHANGE)
         
     def comboUpdateEmotions(self, emotions, itemName):
-        if itemName == Chocolate.name or itemName == WinningTicket.name:
+        if itemName == HistoryBook.name:
+            emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MAX_EMO)
+            emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
+            emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - ENHANCE_MIN_EMO)
+        elif itemName == Chocolate.name or itemName == WinningTicket.name:
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - REDUCED_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - REDUCED_EMO)
@@ -139,7 +155,11 @@ class WinningTicket(BaseItem):
         emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] - MIN_EMO_CHANGE)
 
     def comboUpdateEmotions(self, emotions, itemName):
-        if itemName == Chocolate.name:
+        if itemName == WinningTicket.name:
+            emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MAX_EMO)
+            emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MIN_EMO)
+            emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] - ENHANCE_MIN_EMO)
+        elif itemName == Chocolate.name:
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MAX_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MIN_EMO)
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] - ENHANCE_MIN_EMO)
@@ -160,6 +180,7 @@ class PsychoPill(BaseItem):
         
     def comboUpdateEmotions(self, emotions, itemName):
         if itemName == PsychoPill.name and PsychoPill.isFirstPill:
+            emotions[Moods.Crazy] = self.setScore(emotions[Moods.Crazy] + ENHANCE_MAX_EMO)
             event = Event_AddBall(ballHappy.BallHappy)
             ECOM.eventManager.queueEvent(event)
             event = Event_AddBall(ballAngry.BallAngry)
@@ -175,6 +196,7 @@ class PsychoPill(BaseItem):
             
             PsychoPill.isFirstPill = False
         elif not PsychoPill.isFirstPill:
+            emotions[Moods.Crazy] = self.setScore(emotions[Moods.Crazy] + ENHANCE_MAX_EMO)
             PsychoPill.isFirstPill = True
         
         

@@ -78,3 +78,10 @@ class Event_AddBall(BaseEvent):
     
     def __init__(self, emotion):
         self.emotion = emotion
+
+
+class Event_DestroyExtraBall(BaseEvent):
+    eventType = "DestroyExtraBall"
+    
+    def __init__(self, emotion):
+        self.emotion = emotion
