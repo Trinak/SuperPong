@@ -40,7 +40,23 @@ class PongActorManager(ActorManager):
     
     def destroyBall(self, emotion = None):
         if emotion is None:
-            self.destroyActor(self.getBall().actorID)
+            actorID = self.getBall().actorID
+            self.balls.remove(0)
+            self.destroyActor(actorID)
+        else:
+            ballToDestroy = None
+            
+            for ball in self.balls[1:]:
+                aiComponent = ball.getComponent("AIComponent")
+                if type(aiComponent.currentState) is emotion:
+                    ballToDestroy = ball
+                    break
+                 
+            if ballToDestroy is not None:
+                actorID = ballToDestroy.actorID
+                self.balls.remove(ballToDestroy)
+                self.destroyActor(actorID)
+            
     
     def restartBall(self, num = 0):
         pos = Vec2d(ECOM.Screen.halfW, ECOM.Screen.halfH)

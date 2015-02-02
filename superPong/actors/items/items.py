@@ -6,7 +6,7 @@ Created on Jan 13, 2015
 
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
-from superPong.events.pongEvents import Event_AddBall
+from superPong.events.pongEvents import Event_AddBall, Event_DestroyExtraBall
 from superPong.actors.ballAI.pongBallBrain import Moods
 
 
@@ -52,6 +52,12 @@ class Chocolate(BaseItem):
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] + ENHANCE_MAX_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
+            event = Event_DestroyExtraBall(ballAngry.BallAngry)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_DestroyExtraBall(ballSad.BallSad)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_DestroyExtraBall(ballBored.BallBored)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == PsychoPill.name:
             event = Event_AddBall(ballHappy.BallHappy)
             ECOM.eventManager.queueEvent(event)
@@ -76,12 +82,20 @@ class MeanNote(BaseItem):
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + REDUCED_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - REDUCED_EMO)
+            event = Event_DestroyExtraBall(ballCrazy.BallCrazy)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == SadPicture.name:
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MAX_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MIN_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO)
+            event = Event_DestroyExtraBall(ballHappy.BallHappy)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_DestroyExtraBall(ballExcited.BallExcited)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == WinningTicket.name:
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MIN_EMO)
+            event = Event_DestroyExtraBall(ballCrazy.BallCrazy)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == PsychoPill.name:
             event = Event_AddBall(ballAngry.BallAngry)
             ECOM.eventManager.queueEvent(event)
@@ -107,12 +121,21 @@ class SadPicture(BaseItem):
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MIN_EMO)
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + REDUCED_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - REDUCED_EMO)
+            event = Event_DestroyExtraBall(ballCrazy.BallCrazy)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == MeanNote.name:
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] + ENHANCE_MAX_EMO)
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
             emotions[Moods.Happy] = self.setScore(emotions[Moods.Happy] - ENHANCE_MIN_EMO)
         elif itemName == HistoryBook.name:
             emotions[Moods.Angry] = self.setScore(emotions[Moods.Angry] + ENHANCE_MIN_EMO)
+            event = Event_DestroyExtraBall(ballHappy.BallHappy)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_DestroyExtraBall(ballExcited.BallExcited)
+            ECOM.eventManager.queueEvent(event)
+        elif itemName == WinningTicket.name:
+            event = Event_DestroyExtraBall(ballBored.BallBored)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == PsychoPill.name:
             event = Event_AddBall(ballSad.BallSad)
             ECOM.eventManager.queueEvent(event)
@@ -134,10 +157,16 @@ class HistoryBook(BaseItem):
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MAX_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - ENHANCE_MIN_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - ENHANCE_MIN_EMO)
+            event = Event_DestroyExtraBall(ballAngry.BallAngry)
+            ECOM.eventManager.queueEvent(event)
+            event = Event_DestroyExtraBall(ballSad.BallSad)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == Chocolate.name or itemName == WinningTicket.name:
             emotions[Moods.Bored] = self.setScore(emotions[Moods.Bored] + ENHANCE_MIN_EMO)
             emotions[Moods.Sad] = self.setScore(emotions[Moods.Sad] - REDUCED_EMO)
             emotions[Moods.Excited] = self.setScore(emotions[Moods.Excited] - REDUCED_EMO)
+            event = Event_DestroyExtraBall(ballCrazy.BallCrazy)
+            ECOM.eventManager.queueEvent(event)
         elif itemName == PsychoPill.name:
             event = Event_AddBall(ballBored.BallBored)
             ECOM.eventManager.queueEvent(event)
