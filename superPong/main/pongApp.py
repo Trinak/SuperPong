@@ -23,8 +23,7 @@ class PongApp(PyHopeEngineApp):
             path = os.path.normpath(os.path.dirname(__file__) + "\..\..")
             
         self.resourceManager.setDataDir(path, "Assets")
-        
-        
+    
     def createLogicAndView(self):
         self.baseLogic = PongLogic()
         view = MainMenuView(self.renderer)
