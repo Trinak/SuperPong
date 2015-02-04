@@ -26,10 +26,8 @@ class MainMenuState(BaseState):
             view = pongView.MainMenuView(ECOM.engine.renderer)
             logic.addView(view)
     
-    
     def cleanUp(self, logic):
         logic.gameViewList.pop()
-    
     
     def update(self, logic):
         if self.nextState:
@@ -39,8 +37,7 @@ class MainMenuState(BaseState):
             else:
                 state = PongSetupState(2)
                 logic.changeState(state)
-    
-    
+       
     def buttonPressed(self, event):
         if event.value == "OnePlayer":
             self.nextState = True
@@ -51,7 +48,6 @@ class MainMenuState(BaseState):
             ECOM.engine.setupServer()
         elif event.value == "JoinGame":
             ECOM.engine.setupClient()
-
 
     def isValidServerIP(self, event):
         if event.isValid:
@@ -68,8 +64,7 @@ class PongChooseSidesState(BaseState):
         self.ready = False
         
         ECOM.eventManager.addListener(self.startGame, Event_StartGame.eventType)
-        
-    
+            
     def init(self, logic):
         if self.netType == "client":
             logic.setProxy()
@@ -81,17 +76,14 @@ class PongChooseSidesState(BaseState):
             logic.players = 1
         logic.addView(view)
 
-    
     def update(self, logic):
         if self.ready:
             state = PongSetupState(self.numPlayers, True, self.playerPaddles)
             logic.changeState(state)
-        
     
     def startGame(self, event):
         self.playerPaddles = event.playerPaddles
         self.ready = True
-    
     
     def cleanUp(self, logic):
         logic.gameViewList.pop()
@@ -106,7 +98,6 @@ class PongSetupState(BaseState):
             self.playerOne = playerPaddles.index(1) + 1
             self.playerTwo = playerPaddles.index(2) + 1
             
-    
     def init(self, logic):
         resources = []
         resources.append("Actors\AI\PongBall.xml")              #0
@@ -135,7 +126,6 @@ class PongSetupState(BaseState):
             
         self.ready = True
     
-    
     def initNetworkGame(self, logic, resources):
         if logic.proxy:
             return
@@ -145,18 +135,15 @@ class PongSetupState(BaseState):
 
         event = Event_SetRemoteActor(playerTwo.actorID)
         ECOM.eventManager.queueEvent(event)
-        
-    
+            
     def initGame(self, logic, resources):
         logic.createActor(resources[1], "Player")
         logic.createActor(resources[8], "Enemy")
 
-    
     def update(self, logic):
         if self.ready:
             state = PongRunningState(self.numPlayers)
             logic.changeState(state)
-    
     
     def cleanUp(self, logic):
         pass
@@ -166,27 +153,22 @@ class PongRunningState(BaseState):
     def __init__(self, players):
         self.numPlayers = players
     
-    
     def init(self, logic):
         pass
-        
     
     def update(self, logic):
         if logic.leftScore > 4 or logic.rightScore > 4:
             state = MainMenuState()
             logic.changeState(state)
     
-    
     def cleanUp(self, logic):
         for view in logic.gameViewList:
             view.cleanUp()
         logic.gameViewList.clear()
         logic.actorManager.cleanUp()
+        logic.physics.cleanUp()
+        logic.processManager.cleanUp()
         logic.leftScore = 0
         logic.rightScore = 0
 
-
-
-        
-        
         
