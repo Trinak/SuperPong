@@ -72,4 +72,8 @@ class BallBored(BallState): #Goal: Bored with game. Supports whoever is winning.
             velocityMod = physicsComp.velocityMod
             if velocityMod < 300:
                 velocityMod = 300
-                physicsComp.changeVelocityMod(velocityMod)        
+                physicsComp.changeVelocityMod(velocityMod)       
+    
+    def cleanUp(self):
+        super().cleanUp()
+        ECOM.eventManager.removeListener(self.handleGoal, Event_BallGoal.eventType) 

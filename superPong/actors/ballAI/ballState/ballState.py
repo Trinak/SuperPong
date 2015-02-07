@@ -11,15 +11,13 @@ class BallState(object):
         self.MIN_VELOCITY = 150
         self.AVG_VELOCITY = (self.MAX_VELOCITY + self.MIN_VELOCITY) / 2
     
-    
     def init(self):
         pass
-    
     
     def update(self):
         pass
     
-    
     def cleanUp(self):
         physicsComp = self.ball.getComponent("PhysicsComponent")
-        physicsComp.changeVelocityMod(self.AVG_VELOCITY)
+        if physicsComp is not None and physicsComp.physics is not None:
+            physicsComp.changeVelocityMod(self.AVG_VELOCITY)

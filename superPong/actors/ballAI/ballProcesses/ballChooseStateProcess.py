@@ -11,11 +11,14 @@ class BallChooseStateProcess(Process):
         super().__init__()
         self.interval = 7 * 1000 # 7 seconds
         self.time = 0
-        self.stateMachine = comp
+        self.AIComponent = comp
         
     def update(self, time):
         self.time += time
         
         if self.time > self.interval:
             self.time = 0
-            self.stateMachine.chooseState()
+            self.AIComponent.chooseState()
+    
+    def onSuccess(self):
+        self.AIComponent = None

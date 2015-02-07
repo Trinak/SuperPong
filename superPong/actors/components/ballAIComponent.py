@@ -14,12 +14,13 @@ class BallAIComponent(AIComponent):
         super().__init__()
         self.currentState = None
         self.brain = None
+        self.chooseStateProcess = None
     
     def init(self, element):
         brainElement = element.find("Brain")
         self.setBrain(brainElement.text)
-        ballProcess = BallChooseStateProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(ballProcess)
+        self.chooseStateProcess = BallChooseStateProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(self.chooseStateProcess)
         
     def postInit(self):
         self.currentState = self.brain.init(self.owner)
@@ -48,4 +49,10 @@ class BallAIComponent(AIComponent):
             self.currentState.update()
     
     def cleanUp(self):
-        pass
+        super().cleanUp()
+        self.brain.cleanUp()
+        self.brain = None
+        self.currentState.cleanUp()
+        self.currentState = None
+        self.chooseStateProcess.succeed()
+        self.chooseStateProcess = None

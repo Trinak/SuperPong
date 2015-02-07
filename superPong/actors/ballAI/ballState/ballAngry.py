@@ -71,3 +71,7 @@ class BallAngry(BallState): #Goal: Angry at being hit. Supports whoever has hit 
             if velocityMod < 300:
                 velocityMod = 300
                 physicsComp.changeVelocityMod(velocityMod)
+    
+    def cleanUp(self):
+        super().cleanUp()
+        ECOM.eventManager.removeListener(self.handleGoal, Event_BallGoal.eventType)

@@ -28,6 +28,8 @@ class MainMenuState(BaseState):
     
     def cleanUp(self, logic):
         logic.gameViewList.pop()
+        ECOM.eventManager.removeListener(self.buttonPressed, Event_ButtonPressed.eventType)
+        ECOM.eventManager.removeListener(self.isValidServerIP, Event_IPValid.eventType)
     
     def update(self, logic):
         if self.nextState:
@@ -87,6 +89,7 @@ class PongChooseSidesState(BaseState):
     
     def cleanUp(self, logic):
         logic.gameViewList.pop()
+        ECOM.eventManager.removeListener(self.startGame, Event_StartGame.eventType)
 
 
 class PongSetupState(BaseState):
@@ -162,13 +165,6 @@ class PongRunningState(BaseState):
             logic.changeState(state)
     
     def cleanUp(self, logic):
-        for view in logic.gameViewList:
-            view.cleanUp()
-        logic.gameViewList.clear()
-        logic.actorManager.cleanUp()
-        logic.physics.cleanUp()
-        logic.processManager.cleanUp()
-        logic.leftScore = 0
-        logic.rightScore = 0
+        logic.restartGame()
 
         

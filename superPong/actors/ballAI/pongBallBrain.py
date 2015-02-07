@@ -33,6 +33,9 @@ class BasicBallBrain(object):
     
     def think(self):
         return None
+    
+    def cleanUp(self):
+        self.ball = None
 
 
 class MainBallBrain(BasicBallBrain):
@@ -63,4 +66,7 @@ class MainBallBrain(BasicBallBrain):
         else:
             self.handleItemProcess.addItem(event.item)
         
+    def cleanUp(self):
+        super().cleanUp()
+        ECOM.eventManager.removeListener(self.handleItem, Event_GiveBallItem.eventType)
         

@@ -37,12 +37,16 @@ class PongLogic(BaseLogic):
     def setupCollisionHandlers(self):
         def ballGoalLeft(space, arbiter):
             self.rightScore += 1
-            self.handleGoal()
+            actorID1 = self.physics.getActorID(arbiter.shapes[0])
+            actorID2 = self.physics.getActorID(arbiter.shapes[1])
+            self.handleGoal(actorID1, actorID2)
             return True
         
         def ballGoalRight(space, arbiter):
             self.leftScore += 1
-            self.handleGoal()
+            actorID1 = self.physics.getActorID(arbiter.shapes[0])
+            actorID2 = self.physics.getActorID(arbiter.shapes[1])
+            self.handleGoal(actorID1, actorID2)
             return True
         
         def ballCollide(space, arbiter):
@@ -98,7 +102,7 @@ class PongLogic(BaseLogic):
         ballAI.setState(event.emotion)
     
     def destroyExtraBall(self, event):
-        self.actorManager.destroyBall(event.emotion)
+        self.actorManager.destroyBall(emotion = event.emotion)
     
     def accelerate(self, event):
         actor = self.actorManager.getActor(event.actorID)
@@ -134,12 +138,23 @@ class PongLogic(BaseLogic):
                 event = Event_StartGame(self.spotsSelected)
                 ECOM.eventManager.queueEvent(event)
     
-    def handleGoal(self):
+    def handleGoal(self,actorID1, actorID2):
         event = Event_BallGoal(self.leftScore, self.rightScore)
         ECOM.eventManager.queueEvent(event)
-        self.actorManager.restartBall()
+        if not self.actorManager.ballWasRemoved(actorID1, actorID2):
+            self.actorManager.restartBall()
     
     def scoresRequested(self, event):
         event.requestor.setScores(self.leftScore, self.rightScore)
+    
+    def restartGame(self):
+        for view in self.gameViewList:
+            view.cleanUp()
+        self.gameViewList.clear()
+        self.actorManager.cleanUp()
+        self.physics.cleanUp()
+        self.processManager.cleanUp()
+        self.leftScore = 0
+        self.rightScore = 0
             
         
