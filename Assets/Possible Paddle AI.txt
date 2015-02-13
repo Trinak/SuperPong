@@ -1,0 +1,50 @@
+Winning AI:
+
+if Enemy has given item:
+	if Chocolate given:
+		if Winning:
+			give HistoryBook
+		if Losing:
+			give MeanNote
+	if MeanNote given:
+		if Winning:
+			give HistoryBook
+		if Losing:
+			give PsychoPill
+	if SadPicture given:
+		if Winning:
+			give PsychoPill
+		if Losing:
+			if extra BoredBall exists:
+				give WinningTicket
+			else:
+				give MeanNote
+	if HistoryBook given:
+		if Winning:
+			if extra AngryBall exists:
+				give WinningTicket
+			else:
+				give give PsychoPill
+		if Losing:
+			give SadPicture
+	if WinningTicket given:
+		if Winning:
+			if extra AngryBall exists:
+				give HistoryBook
+			else:
+				give MeanNote
+		if Losing:
+			if extra BoredBall exists:
+				give SadPicture
+			else:
+				give PsychoPill
+	if PsychoPill given:
+		if Winning:
+			give HistoryBook
+		if Losing:
+			give MeanNote
+else:
+	if Winning:
+		give HistoryBook
+	if Losing:
+		give MeanNote

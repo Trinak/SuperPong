@@ -3,20 +3,20 @@ PsychoPill		SadPicture			HistoryBook			Crazy		Sad			Bored
 
 Anything + itself = Greater effect than normal
 
-Chocolate + (MeanNote, SadPicture, HistoryBook) = Decrease effect of other items, cancel Crazy balls
-Chocolate + WinningTicket = Enhanced both, cancels Angry/Sad/Bored balls
-Chocolate + PsychoPill = Create second Happy Ball
+Chocolate + (MeanNote, SadPicture, HistoryBook) = Decrease effect of other items, cancel Crazy balls						Losing/None/Winning
+Chocolate + WinningTicket = Enhanced both, cancels Angry/Sad/Bored balls													None (Cancel balls helps both)
+Chocolate + PsychoPill = Create second Happy Ball			
 
-MeanNote + SadPicture = Enhanced both, cancels Happy/Excited balls
-MeanNote + HistoryBook = Cancel each other
-MeanNote + WinningTicket = Enhanced Bored, cancels Crazy balls
-MeanNote + PsychoPill = Create second Angry Ball
+MeanNote + SadPicture = Enhanced both, cancels Happy/Excited balls															Losing
+MeanNote + HistoryBook = Cancel each other																					None (Winning/Losing cancel each other)		
+MeanNote + WinningTicket = Enhanced Bored, cancels Crazy balls																Winning
+MeanNote + PsychoPill = Create second Angry Balls
 
-SadPicture + HistoryBook = Enhances Angry, cancels Happy/Excited balls
-SadPicture + WinningTicket = Cancel each other, cancels Bored balls
+SadPicture + HistoryBook = Enhances Angry, cancels Happy/Excited balls														Losing
+SadPicture + WinningTicket = Cancel each other, cancels Bored balls															None (Cancel balls helps Losing)
 SadPicture + PsychoPill = Create second Sad Ball
 
-HistoryBook + WinningTicket = Decrease both, cancel Angry/Sad balls
+HistoryBook + WinningTicket = Decrease both, cancel Angry/Sad balls															Losing (Cancel balls helps Winning)
 HistoryBook + PsychoPill = Create second Bored Ball
 
 WinningTicket + PsychoPill = Create second Excited Ball

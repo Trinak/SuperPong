@@ -38,6 +38,14 @@ class PongActorManager(ActorManager):
         
         return None
     
+    def extraBallExists(self, emotion):
+        for ball in self.balls[1:]:
+            aiComponent = ball.getComponent("AIComponent")
+            if type(aiComponent.currentState) is emotion:
+                return True
+        
+        return False
+    
     def destroyBall(self, actorID = 0, emotion = None):
         if emotion is None:
             ball = self.getBall(actorID)

@@ -69,8 +69,9 @@ class Event_StartGame(BaseEvent):
 class Event_GiveBallItem(BaseEvent):
     eventType = "GiveBallItem"
     
-    def __init__(self, item):
+    def __init__(self, item, isPlayerOne = True):
         self.item = item
+        self.isPlayerOne = isPlayerOne
 
 
 class Event_AddBall(BaseEvent):
