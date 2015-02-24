@@ -9,10 +9,12 @@ from pyHopeEngine import BaseUI
 from pyHopeEngine import Event_ButtonPressed
 from superPong.humanView import pongWidgets
 from superPong.actors.items.items import *
+from superPong.humanView.disableGiveItemProcess import DisableGiveItemProcess
 from superPong.events.pongEvents import Event_PaddleClicked, Event_AssignPaddle, Event_RequestStartGame, Event_GiveBallItem
 
 
 from pgu import gui
+from faulthandler import disable
 
 
 Screen = ECOM.Screen
@@ -125,62 +127,107 @@ class PongChooseSidesUI(BaseUI):
 class PongUI(BaseUI):
     def __init__(self, area, **params):
         super().__init__(**params)
+        self.disabledImagesPlayer = False
+        self.disabledImagesEnemy = False
+        self.leftScore = 0
+        self.rightScore = 0
         self.textRect = (0, 0, 175, 30)
-        self.createTopUI(0, 0)
+        self.createTopUI()
         self.init(area = area)
-    
-    def createTopUI(self, leftScore, rightScore):
-        leftText = '{defaultFont; {green; Left Score: ' + str(leftScore) + '}}' 
-        rightText = '{defaultFont; {green; Right Score: ' + str(rightScore) + '}}'
         
-        self.widget.addButton("Images\Chocolate.png", self.giveChocolate, True)
-        self.widget.addButton("Images\HistoryBook.png", self.giveHistoryBook, True)
-        self.widget.addButton("Images\MeanNote.png", self.giveMeanNote, True)
-        self.widget.addButton("Images\PsychoPill.png", self.givePsychoPill, True)
-        self.widget.addButton("Images\SadPicture.png", self.giveSadPicture, True)
-        self.widget.addButton("Images\WinningTicket.png", self.giveWinningTicket, True)
+        ECOM.eventManager.addListener(self.disableImages, Event_GiveBallItem.eventType)
+    
+    def createTopUI(self):
+        leftText = '{defaultFont; {green; Left Score: ' + str(self.leftScore) + '}}' 
+        rightText = '{defaultFont; {green; Right Score: ' + str(self.rightScore) + '}}'
+
+        if self.disabledImagesPlayer:
+            self.createItemImages(True)
+        else:
+            self.createItemButtons()
+        
         self.widget.addSpacer(10, 10)
         self.widget.addText(leftText, self.textRect)
         self.widget.addText(rightText, self.textRect, 'right')
         self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\Chocolate.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\HistoryBook.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\MeanNote.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\PsychoPill.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\SadPicture.png")
-        self.widget.addSpacer(10, 10)
-        self.widget.addImage("Images\WinningTicket.png")
+
+        self.createItemImages(self.disabledImagesEnemy)
         
+    def createItemButtons(self):
+        self.widget.addButton("Images\Chocolate.png", self.giveChocolate, True)
+        self.widget.addSpacer(10, 10)
+        self.widget.addButton("Images\HistoryBook.png", self.giveHistoryBook, True)
+        self.widget.addSpacer(10, 10)
+        self.widget.addButton("Images\MeanNote.png", self.giveMeanNote, True)
+        self.widget.addSpacer(10, 10)
+        self.widget.addButton("Images\PsychoPill.png", self.givePsychoPill, True)
+        self.widget.addSpacer(10, 10)
+        self.widget.addButton("Images\SadPicture.png", self.giveSadPicture, True)
+        self.widget.addSpacer(10, 10)
+        self.widget.addButton("Images\WinningTicket.png", self.giveWinningTicket, True)
+        
+    def createItemImages(self, isDisabled):
+        endText = ".png"
+        
+        if isDisabled:
+            endText = "Disabled.png"
+        
+        self.widget.addImage("Images\Chocolate" + endText)
+        self.widget.addSpacer(30, 10)
+        self.widget.addImage("Images\HistoryBook" + endText)
+        self.widget.addSpacer(30, 10)
+        self.widget.addImage("Images\MeanNote" + endText)
+        self.widget.addSpacer(30, 10)
+        self.widget.addImage("Images\PsychoPill" + endText)
+        self.widget.addSpacer(30, 10)
+        self.widget.addImage("Images\SadPicture" + endText)
+        self.widget.addSpacer(30, 10)
+        self.widget.addImage("Images\WinningTicket" + endText)
+    
     def updateScore(self, left, right):
+        self.leftScore = left
+        self.rightScore = right
         self.widget.remove_row(0)
-        self.createTopUI(left, right)
+        self.createTopUI()
+    
+    def disableImages(self, event):
+        if not event.isPlayerOne:
+            self.disabledImagesEnemy = True
+            process = DisableGiveItemProcess(self, False)
+            ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveChocolate(self):
         event = Event_GiveBallItem(Chocolate())
         ECOM.eventManager.queueEvent(event)
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveHistoryBook(self):
         event = Event_GiveBallItem(HistoryBook())
         ECOM.eventManager.queueEvent(event)
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveMeanNote(self):
         event = Event_GiveBallItem(MeanNote())
         ECOM.eventManager.queueEvent(event)
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def givePsychoPill(self):
         event = Event_GiveBallItem(PsychoPill())
         ECOM.eventManager.queueEvent(event)
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveSadPicture(self):
         event = Event_GiveBallItem(SadPicture())
         ECOM.eventManager.queueEvent(event)
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)
         
     def giveWinningTicket(self):
         event = Event_GiveBallItem(WinningTicket())
         ECOM.eventManager.queueEvent(event)
-        
-        
+        process = DisableGiveItemProcess(self)
+        ECOM.engine.baseLogic.processManager.addProcess(process)

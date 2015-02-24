@@ -9,7 +9,6 @@ from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
 from superPong.actors.items.items import *
 from superPong.events.pongEvents import Event_GiveBallItem, Event_BallGoal
-from superPong.actors.ballAI.ballState.ballBored import BallBored
 
 class PaddleGiveItemProcess(Process):
     def __init__(self):
@@ -34,51 +33,51 @@ class PaddleGiveItemProcess(Process):
             if self.enemyGaveItem: 
                 if self.enemyItemGiven.name == Chocolate.name:
                     if isWinning:
-                        event = Event_GiveBallItem(HistoryBook())
+                        event = Event_GiveBallItem(HistoryBook(), False)
                     else:
-                        event = Event_GiveBallItem(MeanNote())
+                        event = Event_GiveBallItem(MeanNote(), False)
                 elif self.enemyItemGiven.name == MeanNote.name:
                     if isWinning:
-                        event = Event_GiveBallItem(HistoryBook())
+                        event = Event_GiveBallItem(HistoryBook(), False)
                     else:
-                        event = Event_GiveBallItem(PsychoPill())
+                        event = Event_GiveBallItem(PsychoPill(), False)
                 elif self.enemyItemGiven.name == SadPicture.name:
                     if isWinning:
-                        event = Event_GiveBallItem(PsychoPill())
+                        event = Event_GiveBallItem(PsychoPill(), False)
                     else:
                         if ECOM.actorManager.extraBallExists(ballBored.BallBored):
-                            event = Event_GiveBallItem(WinningTicket())
+                            event = Event_GiveBallItem(WinningTicket(), False)
                         else:
-                            event = Event_GiveBallItem(MeanNote())
+                            event = Event_GiveBallItem(MeanNote(), False)
                 elif self.enemyItemGiven.name == HistoryBook.name:
                     if isWinning:
                         if ECOM.actorManager.extraBallExists(ballAngry.BallAngry):
-                            event = Event_GiveBallItem(WinningTicket())
+                            event = Event_GiveBallItem(WinningTicket(), False)
                         else:
-                            event = Event_GiveBallItem(PsychoPill())
+                            event = Event_GiveBallItem(PsychoPill(), False)
                     else:
-                        event = Event_GiveBallItem(SadPicture())
+                        event = Event_GiveBallItem(SadPicture(), False)
                 elif self.enemyItemGiven.name == WinningTicket.name:
                     if isWinning:
                         if ECOM.actorManager.extraBallExists(ballAngry.BallAngry):
-                            event = Event_GiveBallItem(HistoryBook())
+                            event = Event_GiveBallItem(HistoryBook(), False)
                         else:
-                            event = Event_GiveBallItem(MeanNote())
+                            event = Event_GiveBallItem(MeanNote(), False)
                     else:
                         if ECOM.actorManager.extraBallExists(ballBored.BallBored):
-                            event = Event_GiveBallItem(SadPicture())
+                            event = Event_GiveBallItem(SadPicture(), False)
                         else:
-                            event = Event_GiveBallItem(PsychoPill())
+                            event = Event_GiveBallItem(PsychoPill(), False)
                 elif self.enemyItemGiven.name == PsychoPill.name:
                     if isWinning:
-                        event = Event_GiveBallItem(HistoryBook())
+                        event = Event_GiveBallItem(HistoryBook(), False)
                     else:
-                        event = Event_GiveBallItem(MeanNote())
+                        event = Event_GiveBallItem(MeanNote(), False)
             else:
                 if isWinning:
-                    event = Event_GiveBallItem(HistoryBook())
+                    event = Event_GiveBallItem(HistoryBook(), False)
                 else:
-                    event = Event_GiveBallItem(MeanNote())
+                    event = Event_GiveBallItem(MeanNote(), False)
             
             if event is not None:
                 ECOM.eventManager.queueEvent(event)
