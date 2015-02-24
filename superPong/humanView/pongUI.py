@@ -26,11 +26,11 @@ class PongMainMenuUI(BaseUI):
         self.widget.addButton("One Player", self.onePlayerButton)
         self.widget.tr()
         
-        self.widget.addButton("Create Game", self.createLANButton)
-        self.widget.tr()
+        #self.widget.addButton("Create Game", self.createLANButton)
+        #self.widget.tr()
         
-        self.widget.addButton("Join Game", self.joinGameButton)
-        self.widget.tr()
+        #self.widget.addButton("Join Game", self.joinGameButton)
+        #self.widget.tr()
         
         self.widget.addButton("Options", self.optionsButton)
         

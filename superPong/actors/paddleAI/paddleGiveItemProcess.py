@@ -4,6 +4,8 @@ Created on Dec 23, 2014
 @author: Arrington
 '''
 
+import random
+
 from pyHopeEngine import Process
 from pyHopeEngine import engineCommon as ECOM
 from superPong.actors.ballAI.ballState import *
@@ -13,7 +15,7 @@ from superPong.events.pongEvents import Event_GiveBallItem, Event_BallGoal
 class PaddleGiveItemProcess(Process):
     def __init__(self):
         super().__init__()
-        self.interval = 10 * 1000 #10 seconds
+        self.interval = (10 * 1000) + random.randint(0, 4) #10 to 14 seconds
         self.time = 0
         self.myScore = 0
         self.enemyScore = 0
@@ -27,6 +29,7 @@ class PaddleGiveItemProcess(Process):
         
         if self.time > self.interval:
             self.time = 0
+            self.interval = (10 * 1000) + random.randint(0, 4)
             isWinning = self.myScore > self.enemyScore
             event = None
             
