@@ -14,8 +14,7 @@ from superPong.events.pongEvents import (Event_BallGoal, Event_BallCollide, Even
 class PongLogic(BaseLogic):
     def __init__(self):
         super().__init__()
-        self.physics.setDamping(0.7)
-        
+        self.physics.setDamping(0.1)
         self.actorManager = PongActorManager()
         self.leftScore = 0
         self.rightScore = 0
