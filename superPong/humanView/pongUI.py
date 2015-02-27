@@ -32,6 +32,9 @@ class PongMainMenuUI(BaseUI):
         #self.widget.addButton("Join Game", self.joinGameButton)
         #self.widget.tr()
         
+        self.widget.addButton("Instructions", self.instructionButton)
+        self.widget.tr()
+        
         self.widget.addButton("Options", self.optionsButton)
         
         self.init(area = area)
@@ -50,6 +53,9 @@ class PongMainMenuUI(BaseUI):
         ECOM.eventManager.queueEvent(event)
         dialog.open()
 
+    def instructionButton(self):
+        pass
+    
     def optionsButton(self):
         dialog = pongWidgets.OptionsDialog("Options")
         dialog.open()
@@ -194,40 +200,32 @@ class PongUI(BaseUI):
         if not event.isPlayerOne:
             self.disabledImagesEnemy = True
             process = DisableGiveItemProcess(self, False)
-            ECOM.engine.baseLogic.processManager.addProcess(process)
+        else:
+            self.disabledImagesPlayer = True
+            process = DisableGiveItemProcess(self, True)
+        
+        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveChocolate(self):
         event = Event_GiveBallItem(Chocolate())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveHistoryBook(self):
         event = Event_GiveBallItem(HistoryBook())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveMeanNote(self):
         event = Event_GiveBallItem(MeanNote())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def givePsychoPill(self):
         event = Event_GiveBallItem(PsychoPill())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)
     
     def giveSadPicture(self):
         event = Event_GiveBallItem(SadPicture())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)
         
     def giveWinningTicket(self):
         event = Event_GiveBallItem(WinningTicket())
         ECOM.eventManager.queueEvent(event)
-        process = DisableGiveItemProcess(self)
-        ECOM.engine.baseLogic.processManager.addProcess(process)

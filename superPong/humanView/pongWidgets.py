@@ -27,6 +27,12 @@ class JoinGameDialog(BaseDialog):
             ECOM.eventManager.queueEvent(event)
 
 
+class InstructionsDialog(BaseDialog):
+    def __init__(self, title, **params):
+        main = BaseTable()
+        super().__init__(title, main, **params)
+
+
 class OptionsDialog(BaseDialog):
     def __init__(self, title, **params):
         main = BaseTable()
