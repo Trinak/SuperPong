@@ -30,6 +30,21 @@ class JoinGameDialog(BaseDialog):
 class InstructionsDialog(BaseDialog):
     def __init__(self, title, **params):
         main = BaseTable()
+        
+        text = ("The goal of EmotiPong is the same as regular pong, get the ball past your opponents paddle. "
+                "Unlike regular pong, you can give the ball items. The items will influence the balls emotional state "
+                "which may be beneficial for you or your opponent. Be careful though, if you and your opponent give items "
+                "at the same time they may interact unexpectedly.")
+        text = "{smallFont; {green;" + text + " }}"
+        rect = (0, 0, 800, 100)
+        main.addText(text, rect, 'center')
+        main.tr()
+        
+        text = "{largeFont; {green; The States}"
+        rect = (0, 0, 800, 50)
+        main.addText(text, rect, 'center')
+        
+        
         super().__init__(title, main, **params)
 
 

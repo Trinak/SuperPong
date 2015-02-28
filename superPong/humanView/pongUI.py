@@ -54,7 +54,8 @@ class PongMainMenuUI(BaseUI):
         dialog.open()
 
     def instructionButton(self):
-        pass
+        dialog = pongWidgets.InstructionsDialog("Instructions")
+        dialog.open()
     
     def optionsButton(self):
         dialog = pongWidgets.OptionsDialog("Options")
