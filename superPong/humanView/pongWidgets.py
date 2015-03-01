@@ -35,14 +35,13 @@ class InstructionsDialog(BaseDialog):
                 "Unlike regular pong, you can give the ball items. The items will influence the balls emotional state "
                 "which may be beneficial for you or your opponent. Be careful though, if you and your opponent give items "
                 "at the same time they may interact unexpectedly.")
-        text = "{smallFont; {green;" + text + " }}"
         rect = (0, 0, 800, 100)
-        main.addText(text, rect, 'center')
+        main.addText(text, rect, 'center', 'smallFont', 'green')
         main.tr()
         
-        text = "{largeFont; {green; The States}"
+        text = "The States";
         rect = (0, 0, 800, 50)
-        main.addText(text, rect, 'center')
+        main.addText(text, rect, 'center', 'largeFont', 'green')
         
         
         super().__init__(title, main, **params)

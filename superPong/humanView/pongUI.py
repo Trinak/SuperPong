@@ -79,9 +79,9 @@ class PongChooseSidesUI(BaseUI):
         ECOM.eventManager.addListener(self.redrawPaddles, Event_AssignPaddle.eventType)
     
     def createUI(self):
-        text = '{defaultFont; {green; Choose Sides}}'
+        text = "Choose Sides"
         rect = (0, 0, 140, 100)
-        self.widget.addText(text, rect)
+        self.widget.addText(text, rect, color = 'green')
         self.widget.tr()
         
         self.widget.addSpacer(50, 50)
@@ -99,8 +99,8 @@ class PongChooseSidesUI(BaseUI):
         rect = (0,0, 50,50)
         for player in self.playerAssigned:
             if player is not None:
-                text = "{defaultFont; {green; " + str(player) + "}}"
-                self.widget.addText(text, rect)
+                text = str(player)
+                self.widget.addText(text, rect, color = "green")
             else:
                 self.widget.addSpacer(50, 50)
         
@@ -142,11 +142,11 @@ class PongUI(BaseUI):
         self.createTopUI()
         self.init(area = area)
         
-        ECOM.eventManager.addListener(self.disableImages, Event_GiveBallItem.eventType)
+        ECOM.eventManager.addListener(self.handleItemGiven, Event_GiveBallItem.eventType)
     
     def createTopUI(self):
-        leftText = '{defaultFont; {green; Left Score: ' + str(self.leftScore) + '}}' 
-        rightText = '{defaultFont; {green; Right Score: ' + str(self.rightScore) + '}}'
+        leftText = "Left Score: " + str(self.leftScore)
+        rightText = "Right Score: " + str(self.rightScore)
 
         if self.disabledImagesPlayer:
             self.createItemImages(True)
@@ -154,8 +154,8 @@ class PongUI(BaseUI):
             self.createItemButtons()
         
         self.widget.addSpacer(10, 10)
-        self.widget.addText(leftText, self.textRect)
-        self.widget.addText(rightText, self.textRect, 'right')
+        self.widget.addText(leftText, self.textRect, color = "green")
+        self.widget.addText(rightText, self.textRect, 'right', color = "green")
         self.widget.addSpacer(10, 10)
 
         self.createItemImages(self.disabledImagesEnemy)
@@ -197,7 +197,7 @@ class PongUI(BaseUI):
         self.widget.remove_row(0)
         self.createTopUI()
     
-    def disableImages(self, event):
+    def handleItemGiven(self, event):
         if not event.isPlayerOne:
             self.disabledImagesEnemy = True
             process = DisableGiveItemProcess(self, False)
