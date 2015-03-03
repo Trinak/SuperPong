@@ -33,9 +33,9 @@ class PongMainMenuUI(BaseUI):
         #self.widget.tr()
         
         self.widget.addButton("Instructions", self.instructionButton)
-        self.widget.tr()
+        #self.widget.tr()
         
-        self.widget.addButton("Options", self.optionsButton)
+        #self.widget.addButton("Options", self.optionsButton)
         
         self.init(area = area)
     

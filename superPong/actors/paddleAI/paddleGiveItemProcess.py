@@ -84,6 +84,8 @@ class PaddleGiveItemProcess(Process):
             
             if event is not None:
                 ECOM.eventManager.queueEvent(event)
+                self.enemyGaveItem = False
+                self.enemyItemGiven = None
         
     def adjustScore(self, event):
         self.myScore = event.rightScore
