@@ -36,12 +36,13 @@ class InstructionsDialog(BaseDialog):
                 "which may be beneficial for you or your opponent. Be careful though, if you and your opponent give items "
                 "at the same time they may interact unexpectedly.")
         rect = (0, 0, 800, 100)
-        main.addText(text, rect, 'center', 'smallFont', 'green')
-        main.tr()
+
         
         text = "The States";
         rect = (0, 0, 800, 50)
-        main.addText(text, rect, 'center', 'largeFont', 'green')
+
+        
+        main.addImage("Images\InstructionsScreen.png")
         
         
         super().__init__(title, main, **params)
