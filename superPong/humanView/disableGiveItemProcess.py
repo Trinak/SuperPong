@@ -27,8 +27,10 @@ class DisableGiveItemProcess(Process):
         if self.time > self.interval:
             if self.disablePlayer:
                 self.UI.disabledImagesPlayer = False
+                self.UI.playerItemGiven = None
             else:
                 self.UI.disabledImagesEnemy = False
+                self.UI.opponentItemGiven = None
                 
             self.UI.widget.remove_row(0)
             self.UI.createTopUI()

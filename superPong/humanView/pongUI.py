@@ -135,13 +135,15 @@ class PongUI(BaseUI):
     def __init__(self, area, **params):
         super().__init__(**params)
         self.disabledImagesPlayer = False
-        self.disabledImagesEnemy = False
+        self.disabledImagesEnemy = False        
+        self.playerItemGiven = None
+        self.opponentItemGiven = None
         self.leftScore = 0
         self.rightScore = 0
-        self.textRect = (0, 0, 175, 30)
+        self.scoreRect = (0, 0, 175, 30)
         self.createTopUI()
         self.init(area = area)
-        
+
         ECOM.eventManager.addListener(self.handleItemGiven, Event_GiveBallItem.eventType)
     
     def createTopUI(self):
@@ -149,16 +151,17 @@ class PongUI(BaseUI):
         rightText = "Right Score: " + str(self.rightScore)
 
         if self.disabledImagesPlayer:
-            self.createItemImages(True)
+            self.createItemImages(True, True)
         else:
             self.createItemButtons()
         
         self.widget.addSpacer(10, 10)
-        self.widget.addText(leftText, self.textRect, color = "green")
-        self.widget.addText(rightText, self.textRect, 'right', color = "green")
+        self.widget.addText(leftText, self.scoreRect, color = "green")
+        self.widget.addText(rightText, self.scoreRect, 'right', color = "green")
         self.widget.addSpacer(10, 10)
 
-        self.createItemImages(self.disabledImagesEnemy)
+        self.createItemImages(self.disabledImagesEnemy, False)
+        self.widget.tr();
         
     def createItemButtons(self):
         self.widget.addButton("Images\Chocolate.png", self.giveChocolate, True)
@@ -173,23 +176,50 @@ class PongUI(BaseUI):
         self.widget.addSpacer(10, 10)
         self.widget.addButton("Images\WinningTicket.png", self.giveWinningTicket, True)
         
-    def createItemImages(self, isDisabled):
+    def createItemImages(self, isDisabled, isPlayerOne):
         endText = ".png"
         
         if isDisabled:
             endText = "Disabled.png"
         
-        self.widget.addImage("Images\Chocolate" + endText)
+        if isPlayerOne:
+            itemName = self.playerItemGiven
+        else:
+            itemName = self.opponentItemGiven
+
+        if itemName == "Chocolate":
+            self.widget.addImage("Images\ChocolateChosen.png")
+        else:
+            self.widget.addImage("Images\Chocolate" + endText)
+            
         self.widget.addSpacer(30, 10)
-        self.widget.addImage("Images\HistoryBook" + endText)
+        if itemName == "HistoryBook":
+            self.widget.addImage("Images\HistoryBookChosen.png")
+        else:
+            self.widget.addImage("Images\HistoryBook" + endText)
+        
         self.widget.addSpacer(30, 10)
-        self.widget.addImage("Images\MeanNote" + endText)
+        if itemName == "MeanNote":
+            self.widget.addImage("Images\MeanNoteChosen.png")
+        else:
+            self.widget.addImage("Images\MeanNote" + endText)
+        
         self.widget.addSpacer(30, 10)
-        self.widget.addImage("Images\PsychoPill" + endText)
+        if itemName == "PsychoPill":
+            self.widget.addImage("Images\PsychoPillChosen.png")
+        else:
+            self.widget.addImage("Images\PsychoPill" + endText)
+        
         self.widget.addSpacer(30, 10)
-        self.widget.addImage("Images\SadPicture" + endText)
+        if itemName == "SadPicture":
+            self.widget.addImage("Images\SadPictureChosen.png")
+        else:
+            self.widget.addImage("Images\SadPicture" + endText)
         self.widget.addSpacer(30, 10)
-        self.widget.addImage("Images\WinningTicket" + endText)
+        if itemName == "WinningTicket":
+            self.widget.addImage("Images\WinningTicketChosen.png")
+        else:
+            self.widget.addImage("Images\WinningTicket" + endText)
     
     def updateScore(self, left, right):
         self.leftScore = left
@@ -198,12 +228,14 @@ class PongUI(BaseUI):
         self.createTopUI()
     
     def handleItemGiven(self, event):
-        if not event.isPlayerOne:
-            self.disabledImagesEnemy = True
-            process = DisableGiveItemProcess(self, False)
-        else:
+        if event.isPlayerOne:
+            self.playerItemGiven = event.item.name
             self.disabledImagesPlayer = True
             process = DisableGiveItemProcess(self, True)
+        else:
+            self.opponentItemGiven = event.item.name
+            self.disabledImagesEnemy = True
+            process = DisableGiveItemProcess(self, False)
         
         ECOM.engine.baseLogic.processManager.addProcess(process)
     
