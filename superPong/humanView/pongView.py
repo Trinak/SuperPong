@@ -31,8 +31,7 @@ class MainMenuView(HumanView):
 
 
     def buttonPressed(self, event):
-        pass
-        #self.audio.playSound("button")
+        self.audio.playSound("button")
 
 
 class PongChooseSidesView(HumanView):
@@ -85,9 +84,8 @@ class PongHumanView(HumanView):
        
     def updateScore(self, event):
         self.UI.updateScore(event.leftScore, event.rightScore)
-        #self.audio.playSound("goal")
+        self.audio.playSound("goal")
     
     
     def ballCollide(self, event):
-        pass
-        #self.audio.playSound("collide") 
+        self.audio.playSound("collide") 
