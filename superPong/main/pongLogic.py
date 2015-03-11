@@ -6,7 +6,7 @@ Created on May 9, 2013
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import BaseLogic
-from pyHopeEngine import Event_ClientConnected, Event_Accelerate, Event_Decelerate, Event_ApplyImpulse
+from pyHopeEngine import Event_ClientConnected, Event_Accelerate, Event_Decelerate, Event_ApplyImpulse, Event_ChangeVelocity
 from superPong.actors.pongActorManager import PongActorManager
 from superPong.events.pongEvents import (Event_BallGoal, Event_BallCollide, Event_RequestCurrentScore, Event_PaddleClicked, Event_AssignPaddle, 
                                          Event_AssignPlayerID, Event_RequestStartGame, Event_StartGame, Event_AddBall, Event_DestroyExtraBall)
@@ -14,7 +14,6 @@ from superPong.events.pongEvents import (Event_BallGoal, Event_BallCollide, Even
 class PongLogic(BaseLogic):
     def __init__(self):
         super().__init__()
-        self.physics.setDamping(0.1)
         self.actorManager = PongActorManager()
         self.leftScore = 0
         self.rightScore = 0
@@ -25,6 +24,7 @@ class PongLogic(BaseLogic):
         ECOM.eventManager.addListener(self.accelerate, Event_Accelerate.eventType)
         ECOM.eventManager.addListener(self.decelerate, Event_Decelerate.eventType)
         ECOM.eventManager.addListener(self.applyImpulse, Event_ApplyImpulse.eventType)
+        ECOM.eventManager.addListener(self.changeVelocity, Event_ChangeVelocity.eventType)
         ECOM.eventManager.addListener(self.paddleClicked, Event_PaddleClicked.eventType)
         ECOM.eventManager.addListener(self.clientConnected, Event_ClientConnected.eventType)
         ECOM.eventManager.addListener(self.assignPlayerID, Event_AssignPlayerID.eventType)
@@ -117,6 +117,11 @@ class PongLogic(BaseLogic):
         actor = self.actorManager.getActor(event.actorID)
         physicsComp = actor.getComponent("PhysicsComponent")
         physicsComp.applyImpulse(event.direction, event.magnitude)
+    
+    def changeVelocity(self, event):
+        actor = self.actorManager.getActor(event.actorID)
+        physicsComp = actor.getComponent("PhysicsComponent")
+        physicsComp.setVelocity(event.velocity)
     
     def clientConnected(self, event):
         self.players += 1

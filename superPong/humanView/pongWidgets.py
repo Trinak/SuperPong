@@ -30,22 +30,28 @@ class JoinGameDialog(BaseDialog):
 class InstructionsDialog(BaseDialog):
     def __init__(self, title, **params):
         main = BaseTable()
-        
-        text = ("The goal of EmotiPong is the same as regular pong, get the ball past your opponents paddle. "
-                "Unlike regular pong, you can give the ball items. The items will influence the balls emotional state "
-                "which may be beneficial for you or your opponent. Be careful though, if you and your opponent give items "
-                "at the same time they may interact unexpectedly.")
-        rect = (0, 0, 800, 100)
-
-        
-        text = "The States";
-        rect = (0, 0, 800, 50)
-
-        
         main.addImage("Images\InstructionsScreen.png")
-        
-        
         super().__init__(title, main, **params)
+
+
+class GoalDialog(BaseDialog):
+    def __init__(self, **params):
+        main = BaseTable()
+        main.addImage("Images\GoalScreen.png")
+        super().__init__("Goals", main, **params)
+
+
+class EmotionalStatesDialog(BaseDialog):
+    def __init__(self, **params):
+        main = BaseTable()
+        main.addImage("Images\EmotionalStatesScreen.png")
+        super().__init__("Emotional States", main, **params)
+
+class ItemsAndCombosDialog(BaseDialog):
+    def __init__(self, **params):
+        main = BaseTable()
+        main.addImage("Images\ItemsAndCombosScreen.png")
+        super().__init__("Items and Combos", main, **params)
 
 
 class OptionsDialog(BaseDialog):

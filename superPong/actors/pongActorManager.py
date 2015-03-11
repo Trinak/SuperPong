@@ -31,6 +31,9 @@ class PongActorManager(ActorManager):
     def addBall(self, actor):
         self.balls.append(actor)
     
+    def getBalls(self):
+        return self.balls
+    
     def getBall(self, actorID = 0):
         for ball in self.balls:
             if ball.actorID == actorID:

@@ -8,11 +8,11 @@ import pygame
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import KeyboardHandler
-from pyHopeEngine import Event_Accelerate, Event_Decelerate
+from pyHopeEngine import Event_ChangeVelocity
 from superPong.events.pongEvents import Event_GiveBallItem
 from superPong.actors.items.items import *
 
-ACCELERATION = 100
+VELOCITY = 400
 
 class PaddleController(KeyboardHandler):
     def __init__(self):
@@ -35,11 +35,11 @@ class PaddleController(KeyboardHandler):
         super().onKeyDown(key)
         
         if self.keys[self.keyMoveUp]:
-            event = Event_Accelerate(self.paddleNode.actorID, -ACCELERATION)
+            event = Event_ChangeVelocity(self.paddleNode.actorID, (0, -VELOCITY))
             ECOM.eventManager.queueEvent(event)
         
         if self.keys[self.keyMoveDown]:
-            event = Event_Accelerate(self.paddleNode.actorID, ACCELERATION)
+            event = Event_ChangeVelocity(self.paddleNode.actorID, (0, VELOCITY))
             ECOM.eventManager.queueEvent(event)
     
     
@@ -47,7 +47,7 @@ class PaddleController(KeyboardHandler):
         super().onKeyUp(key)
         
         if key == self.keyMoveUp or key == self.keyMoveDown:
-            event = Event_Decelerate(self.paddleNode.actorID, 0)
+            event = Event_ChangeVelocity(self.paddleNode.actorID, (0, 0))
             ECOM.eventManager.queueEvent(event)
         
         if key == self.giveChocolate:

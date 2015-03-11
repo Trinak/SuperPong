@@ -29,7 +29,7 @@ class PaddleGiveItemProcess(Process):
         
         if self.time > self.interval:
             self.time = 0
-            self.interval = (10 * 1000) + random.randint(0, 4)
+            self.interval = (10 + random.randint(0, 6)) * 1000
             isWinning = self.myScore > self.enemyScore
             event = None
             

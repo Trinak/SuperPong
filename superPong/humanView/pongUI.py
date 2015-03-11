@@ -26,16 +26,13 @@ class PongMainMenuUI(BaseUI):
         self.widget.addButton("One Player", self.onePlayerButton)
         self.widget.tr()
         
-        #self.widget.addButton("Create Game", self.createLANButton)
-        #self.widget.tr()
+        self.widget.addButton("The Goal", self.goalButton)
+        self.widget.tr()
         
-        #self.widget.addButton("Join Game", self.joinGameButton)
-        #self.widget.tr()
+        self.widget.addButton("Emotional States", self.emotionalStatesButton)
+        self.widget.tr()
         
-        self.widget.addButton("Instructions", self.instructionButton)
-        #self.widget.tr()
-        
-        #self.widget.addButton("Options", self.optionsButton)
+        self.widget.addButton("Items and Combos", self.itemsAndCombosButton)
         
         self.init(area = area)
     
@@ -53,8 +50,16 @@ class PongMainMenuUI(BaseUI):
         ECOM.eventManager.queueEvent(event)
         dialog.open()
 
-    def instructionButton(self):
-        dialog = pongWidgets.InstructionsDialog("Instructions")
+    def goalButton(self):
+        dialog = pongWidgets.GoalDialog()
+        dialog.open()
+        
+    def emotionalStatesButton(self):
+        dialog = pongWidgets.EmotionalStatesDialog()
+        dialog.open()
+    
+    def itemsAndCombosButton(self):
+        dialog = pongWidgets.ItemsAndCombosDialog()
         dialog.open()
     
     def optionsButton(self):
