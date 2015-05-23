@@ -5,7 +5,7 @@ Created on Jan 13, 2015
 '''
 
 from pyHopeEngine import engineCommon as ECOM
-from superPong.actors.ballAI.ballState import *
+from superPong.actors.ballAI.ballState import ballAngry, ballBored, ballCrazy, ballExcited, ballHappy, ballSad
 from superPong.events.pongEvents import Event_AddBall, Event_DestroyExtraBall
 from superPong.actors.ballAI.pongBallBrain import Moods
 

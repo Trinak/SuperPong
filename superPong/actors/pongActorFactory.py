@@ -5,7 +5,7 @@ Created on Jul 27, 2013
 '''
 
 from pyHopeEngine import ActorFactory
-from superPong.actors.components import *
+from superPong.actors.components import ballAIComponent, paddlePhysicsComponent, pongPaddleAIComponent
 
 class PongActorFactory(ActorFactory):
     def __init__(self):

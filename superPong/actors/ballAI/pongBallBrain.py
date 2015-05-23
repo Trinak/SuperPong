@@ -8,7 +8,7 @@ import random
 from enum import IntEnum
 
 from pyHopeEngine import engineCommon as ECOM
-from superPong.actors.ballAI.ballState import *
+from superPong.actors.ballAI.ballState import ballAngry, ballBored, ballCrazy, ballExcited, ballHappy, ballSad
 from superPong.actors.ballAI.ballProcesses.ballHandleItemProcess import BallHandleItemProcess
 from superPong.events.pongEvents import Event_BallCollide, Event_GiveBallItem, Event_RequestCurrentScore
 
